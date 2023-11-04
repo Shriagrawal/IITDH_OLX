@@ -5,7 +5,6 @@ SECRET_KEY = 'your_secret_key'
 
 expiration_time = datetime.datetime.utcnow() + datetime.timedelta(hours=24)
 
-
 def hash_password(password: str):
     payload = {
         'data': password,
