@@ -1,65 +1,56 @@
-import React, { useState , useEffect} from "react";
-import ProfileCard from "../components/ProfileCard";
+import React, { useState,useEffect } from "react";
+import PublicationCard from "../components/PublicationCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
-import Sellitem from "../components/Sellitem";
-import {GetDataApiCalls} from "../Services";
-export default function Home() {
+import AddEvents from "../components/AddEvents";
+import {publicationData} from "../DumyData";
 
-  const [data,setdata] = useState([]);
-  const [filtereddata, setFiltereddata] = useState(data);
+
+export default function Events() {
+
+  const[publicationData,setpublicationData] = useState([]);
+  const [filtereddata, setFiltereddata] = useState(publicationData);
   useEffect(()=>{
-  //  async function fetchdata() {
-    // try{
-    //   let api_data = await GetDataApiCalls('instructors/');
-    //   if(api_data.message === 'Failed')
-    //   api_data = [];
-    //   setdata(api_data);
-    //   console.log(api_data);
-    //   setFiltereddata(api_data);
-    // }
-    // catch(error)
-    // {
-    //   console.log(error);
-    // }
-    // }
-    // fetchdata();
+    async function publication(){
+    // let api_publication_data = await fetch('http://127.0.0.1:8000/All_Publications');
+    // api_publication_data = await api_publication_data.json();
+    // setpublicationData(api_publication_data);
+    // setFiltereddata(api_publication_data);
+    // console.log(api_publication_data);
+    }    
+   publication();
   },[]);
 
+
   const [show, setShow] = useState(false);
-  
   const SearchData = () => {
     const search = document.getElementById("search").value;
-    const filtered = data.filter(
+    const filtered = publicationData.filter(
       (item) =>
         item.name.toLowerCase().includes(search.toLowerCase()) ||
         item.email.toLowerCase().includes(search.toLowerCase())
     );
     setFiltereddata(filtered);
   };
+  const [SortText, setSortText] = useState("Sort by Departmant");
 
-
-  const [SortText, setSortText] = useState("Sort by Price");
-
-  async function fetch_department_sorted_data(){
-    // let sorted_data = await fetch('http://127.0.0.1:8000/department_sorted_instructors');
-    // sorted_data = await sorted_data.json();
-    // setFiltereddata(sorted_data);
+  async function fetch_department_sorted_for_publication()
+  {
+      let data  = await fetch('api')
+      data = await data.json();
+      setFiltereddata(data);
   }
-   
   const SortData = () => {
-    let filter = [...data];
-    if (SortText === "Sort by Price") {
-      // filter.sort((a, b) => a.department.localeCompare(b.department));
-      fetch_department_sorted_data();
-      setSortText("Sort by Rating");
+    let filter = [...publicationData];
+    if (SortText === "Sort by Department") {
+      fetch_department_sorted_for_publication()
+      setSortText("Sort by Performance Score");
     } else {
       filter.sort((a, b) => b.performance_score - a.performance_score);
-      setSortText("Sort by Price");
+      setSortText("Sort by Department");
     }
     setFiltereddata(filter);
   };
-
   const handleClose = () => setShow(false);
   const handleShow = () => {
     console.log(show);
@@ -67,7 +58,7 @@ export default function Home() {
   };
   return (
     <div className="container mt-3">
-      {show && <Sellitem handleClose={handleClose} />}
+      {show && <AddEvents handleClose={handleClose} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
@@ -105,21 +96,7 @@ export default function Home() {
             />
           </div>
           <div style={{ display: "flex", gap: "12px" }}>
-            <div
-              style={{
-                color: "black",
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                background: "#167bff",
-                color: "white",
-                borderRadius: "8px",
-                cursor: "pointer",
-              }}
-              onClick={SortData}
-            >
-              <div className="Box">{SortText}</div>
-            </div>
+
             <div
               style={{
                 color: "black",
@@ -134,7 +111,7 @@ export default function Home() {
               onClick={handleShow}
             >
               <img src={plus} style={{ width: "24px" }} />
-              Sell
+              Add Donation for Events
             </div>
           </div>
         </div>
@@ -149,7 +126,7 @@ export default function Home() {
           }}
         >
           {filtereddata.map((item, index) => (
-            <ProfileCard key={index} data={item} />
+            <PublicationCard key={index} data={item} />
           ))}
         </div>
       </div>

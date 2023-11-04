@@ -2,19 +2,21 @@ import React, { useState,useEffect } from "react";
 import PublicationCard from "../components/PublicationCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
-import AddPublication from "../components/AddPublication";
+import AddAlumni from "../components/AddAlumni";
 import {publicationData} from "../DumyData";
-export default function Publication() {
+
+
+export default function Alumni() {
 
   const[publicationData,setpublicationData] = useState([]);
   const [filtereddata, setFiltereddata] = useState(publicationData);
   useEffect(()=>{
     async function publication(){
-    let api_publication_data = await fetch('http://127.0.0.1:8000/All_Publications');
-    api_publication_data = await api_publication_data.json();
-    setpublicationData(api_publication_data);
-    setFiltereddata(api_publication_data);
-    console.log(api_publication_data);
+    // let api_publication_data = await fetch('http://127.0.0.1:8000/All_Publications');
+    // api_publication_data = await api_publication_data.json();
+    // setpublicationData(api_publication_data);
+    // setFiltereddata(api_publication_data);
+    // console.log(api_publication_data);
     }    
    publication();
   },[]);
@@ -56,7 +58,7 @@ export default function Publication() {
   };
   return (
     <div className="container mt-3">
-      {show && <AddPublication handleClose={handleClose} />}
+      {show && <AddAlumni handleClose={handleClose} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
@@ -94,21 +96,7 @@ export default function Publication() {
             />
           </div>
           <div style={{ display: "flex", gap: "12px" }}>
-            <div
-              style={{
-                color: "black",
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                background: "#167bff",
-                color: "white",
-                borderRadius: "8px",
-                cursor: "pointer",
-              }}
-              onClick={SortData}
-            >
-              <div className="Box">{SortText}</div>
-            </div>
+
             <div
               style={{
                 color: "black",
@@ -123,7 +111,7 @@ export default function Publication() {
               onClick={handleShow}
             >
               <img src={plus} style={{ width: "24px" }} />
-              Add
+              Add Alumni
             </div>
           </div>
         </div>
