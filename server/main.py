@@ -2,6 +2,7 @@ import uvicorn
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
+<<<<<<< HEAD
 from fastapi import FastAPI, WebSocket
 from typing import List
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -9,6 +10,13 @@ from datetime import datetime
 import json
 import requests
 from bs4 import BeautifulSoup
+=======
+from fastapi import FastAPI,Depends
+from sqlalchemy import create_engine, select
+from sqlalchemy.orm import Session,sessionmaker,SessionLocal
+from Models import User  # Replace with your actual module and User model import
+
+>>>>>>> 76a5ae53e30a23c3993d71185f279b9e2b9facb4
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware,
@@ -16,7 +24,6 @@ app.add_middleware(CORSMiddleware,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],)
-
 
 # MongoDB connection URL
 mongo_uri = "mongodb+srv://pawanmittal2002:abhi2811@cluster0.9vjktto.mongodb.net/"
@@ -32,9 +39,10 @@ database = client["IIT_DH_OLX"]
 app = FastAPI()
 @app.get("/")
 async def root():
-    # If database doesn't exist, create it
+    
     return {"message": "Hello World"}
 
+<<<<<<< HEAD
 
 class ConnectionManager:
 
@@ -94,3 +102,25 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
         message = {"time":current_time,"clientId":client_id,"message":"Offline"}
         await manager.broadcast(json.dumps(message))
 
+=======
+@app.get("/users/")
+def get_users(db: Session = Depends(User)):
+    users = db.query(User).all()
+    return users
+
+
+@app.get("/users/{username}")
+def get_user(username: str):
+    db = SessionLocal()
+    user = db.execute(select(User).where(User.username == username)).scalar()
+    db.close()
+
+    if user:
+        return {"user_id": user.id, "username": user.username, "email": user.email}
+    else:
+        return {"message": "User not found"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+>>>>>>> 76a5ae53e30a23c3993d71185f279b9e2b9facb4
