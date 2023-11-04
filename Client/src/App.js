@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Chat from "./pages/Chat";
 import { GetItemLocalStorage } from "./Services";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
     <BrowserRouter>
      { PathName!='/signIn' && PathName!='/signUp'&& PathName!='/' && <Navbar />}
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Chat />} />
         <Route path="/signIn" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
