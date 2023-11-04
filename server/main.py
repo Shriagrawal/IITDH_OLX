@@ -1,5 +1,4 @@
 import uvicorn
-import bcrypt
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi.middleware.cors import CORSMiddleware
@@ -50,4 +49,7 @@ def get_user(username: str):
         return {"message": "User not found"}
 
 def hash_password(password: str):
-    return pwd_context.hash(password)
+    from passlib.context import CryptContext
+    password_helper = CryptContext(schemes=["argon2", "bcrypt"], deprecated="auto")
+
+    return password_helper.hash(password)
