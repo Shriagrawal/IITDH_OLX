@@ -1,8 +1,3 @@
-## Plan - TO DO :
-
-### 1. Add Bootstrap + React.js Frontend
-
-### 2. FastAPI + MongoDB
 
 #### How to run server :
 
