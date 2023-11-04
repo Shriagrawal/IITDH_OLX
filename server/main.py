@@ -49,5 +49,9 @@ def get_user(username: str):
     else:
         return {"message": "User not found"}
 
+@app.post()
+
+
 def hash_password(password: str):
     return pwd_context.hash(password)
+
