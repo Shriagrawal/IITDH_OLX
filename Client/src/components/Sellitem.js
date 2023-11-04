@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function AddFaculty({handleClose}) {
+function Sellitem({handleClose}) {
 
   
 const Navigate = useNavigate();
@@ -53,7 +53,7 @@ const handleSubmit = async (e)=>{
     <>
       <Modal show='true' centered='true'>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Add Faculty</Modal.Title>
+          <Modal.Title>Sell item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -135,4 +135,4 @@ const handleSubmit = async (e)=>{
   );
 }
 
-export default AddFaculty;
+export default Sellitem;

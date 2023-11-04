@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,13 +25,18 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav" style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <ul className="navbar-nav ml-auto"> {/* Add 'ml-auto' to align items to the right */}
             <li className="nav-item">
-              <Link to="/Research" className="nav-link">
+              <Link to="/Merchandise" className="nav-link">
                 Merchandise
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/Publications" className="nav-link">
+              <Link to="/Events" className="nav-link">
                 Events
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/Alumni" className="nav-link">
+                Connect to Alumni
               </Link>
             </li>
             {/* <li className="nav-item">

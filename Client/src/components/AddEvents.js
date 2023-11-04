@@ -3,19 +3,17 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-
-function AddResearch({handleClose}) {
-
+function AddPublication({handleClose}) {
   return (
     <>
       <Modal show='true' centered='true'>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Add Research</Modal.Title>
+          <Modal.Title>Add Event Donation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Research Title</Form.Label>
+              <Form.Label>Name of Event</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Title"
@@ -23,37 +21,22 @@ function AddResearch({handleClose}) {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Research Area</Form.Label>
+              <Form.Label>Venue Date</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Research Area"
+                type="date"
+                placeholder="Publication date"
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
-        <Form.Label>Status</Form.Label>
-        <Form.Control
-          as="select"
-          autoFocus
-        >
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </Form.Control>
-      </Form.Group>
+            
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Proffesor</Form.Label>
+              <Form.Label>Event Link</Form.Label>
               <Form.Control
-                type="text"
+                type="link"
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Budget (In INR)</Form.Label>
-              <Form.Control
-                type="Number"
-                autoFocus
-              />
-            </Form.Group>
+            
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -69,4 +52,4 @@ function AddResearch({handleClose}) {
   );
 }
 
-export default AddResearch;
+export default AddPublication;

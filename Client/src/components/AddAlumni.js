@@ -3,40 +3,46 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-function AddPublication({handleClose}) {
+function AddAlumni({handleClose}) {
   return (
     <>
       <Modal show='true' centered='true'>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Add Publication</Modal.Title>
+          <Modal.Title>Add Alumni</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Research Title</Form.Label>
+              <Form.Label>Alumni Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Title"
+                placeholder="Alumni Name"
                 autoFocus
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Publication Date</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
-                type="date"
-                placeholder="Publication date"
+                type="text"
+                placeholder="Email"
                 autoFocus
               />
             </Form.Group>
-            
+            <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
+        <Form.Label>Batch</Form.Label>
+        <Form.Control
+          type="number"
+          autoFocus
+        >
+        </Form.Control>
+      </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Paper Link</Form.Label>
+              <Form.Label>Phone Number</Form.Label>
               <Form.Control
-                type="link"
+                type="text"
                 autoFocus
               />
             </Form.Group>
-            
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -52,4 +58,4 @@ function AddPublication({handleClose}) {
   );
 }
 
-export default AddPublication;
+export default AddAlumni;
