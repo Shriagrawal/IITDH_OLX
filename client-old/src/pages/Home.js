@@ -9,21 +9,21 @@ export default function Home() {
   const [data,setdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState(data);
   useEffect(()=>{
-   async function fetchdata() {
-    try{
-      let api_data = await GetDataApiCalls('instructors/');
-      if(api_data.message === 'Failed')
-      api_data = [];
-      setdata(api_data);
-      console.log(api_data);
-      setFiltereddata(api_data);
-    }
-    catch(error)
-    {
-      console.log(error);
-    }
-    }
-    fetchdata();
+  //  async function fetchdata() {
+    // try{
+    //   let api_data = await GetDataApiCalls('instructors/');
+    //   if(api_data.message === 'Failed')
+    //   api_data = [];
+    //   setdata(api_data);
+    //   console.log(api_data);
+    //   setFiltereddata(api_data);
+    // }
+    // catch(error)
+    // {
+    //   console.log(error);
+    // }
+    // }
+    // fetchdata();
   },[]);
 
   const [show, setShow] = useState(false);
@@ -42,9 +42,9 @@ export default function Home() {
   const [SortText, setSortText] = useState("Sort by Department");
 
   async function fetch_department_sorted_data(){
-    let sorted_data = await fetch('http://127.0.0.1:8000/department_sorted_instructors');
-    sorted_data = await sorted_data.json();
-    setFiltereddata(sorted_data);
+    // let sorted_data = await fetch('http://127.0.0.1:8000/department_sorted_instructors');
+    // sorted_data = await sorted_data.json();
+    // setFiltereddata(sorted_data);
   }
    
   const SortData = () => {
