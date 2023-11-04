@@ -37,7 +37,7 @@ function App() {
     <BrowserRouter>
      { PathName!='/signIn' && PathName!='/signUp'&& PathName!='/' && <Navbar />}
       <Routes>
-        <Route path="/" element={<Chat />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signIn" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
