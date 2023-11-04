@@ -48,11 +48,11 @@ def get_user(username: str):
     else:
         return {"message": "User not found"}
 
-@app.post()
-
-
 def hash_password(password: str):
     from passlib.context import CryptContext
     password_helper = CryptContext(schemes=["argon2", "bcrypt"], deprecated="auto")
 
-    return password_helper.hash(password)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
