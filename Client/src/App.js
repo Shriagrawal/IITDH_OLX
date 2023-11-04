@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Alumni from "./pages/Alumni";
 import { GetItemLocalStorage } from "./Services";
+import ShoppingCart from "./shoppingcart/WhishList";
+import ChatBox from "./chats/ChatBox";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -31,6 +33,7 @@ function App() {
 
 
   return (
+
     <BrowserRouter>
      { PathName!='/signIn' && PathName!='/signUp'&& PathName!='/' && <Navbar />}
       <Routes>
