@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function AddFaculty({handleClose}) {
+function Sellitem({handleClose}) {
 
   
 const Navigate = useNavigate();
@@ -23,7 +23,8 @@ const handleSubmit = async (e)=>{
   }
 }
 
-  const[formdata,setformdata] = useState({name:'k',email:'k',phoneNo:'k',password:'k',department:'k'})
+  const[formdata,setformdata] = useState({product_title:'k',description:'k',price:'k',image:'k',condition:'k',status:'k'})
+  
   function add_data(data_type,data_val)
   {
     formdata[data_type] = data_val;
@@ -53,73 +54,60 @@ const handleSubmit = async (e)=>{
     <>
       <Modal show='true' centered='true'>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Add Faculty</Modal.Title>
+          <Modal.Title>Sell item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Product Title</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="name"
+                placeholder="product title"
                 autoFocus
-                onChange={(e)=>add_data('name',e.target.value)}
+                onChange={(e)=>add_data('product_title',e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="name@example.com"
+                placeholder="Write a short description about the product."
                 autoFocus
-                onChange={(e)=>add_data('email',e.target.value)}
+                onChange={(e)=>add_data('description',e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Profile Image</Form.Label>
+              <Form.Label>Price</Form.Label>
               <Form.Control
-                type="link"
-                placeholder="https://example.image"
+                type="number"
+                placeholder="0"
                 autoFocus
-                // onChange={(e)=>add_data('email',e.target.value)}
+                onChange={(e)=>add_data('price',e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Department</Form.Label>
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e)=>add_data('image',e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Condition</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Electrical"
                 autoFocus
-                onChange={(e)=>add_data('department',e.target.value)}
+                onChange={(e)=>add_data('condition',e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                autoFocus
-                onChange={(e)=>add_data('password',e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Phone No</Form.Label>
+              <Form.Label>Status</Form.Label>
               <Form.Control
                 type="tel"
                 autoFocus
-                onChange={(e)=>add_data('phoneNo',e.target.value)}
+                onChange={(e)=>add_data('status',e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
-        <Form.Label>Type</Form.Label>
-        <Form.Control
-          as="select"
-          autoFocus
-        >
-          <option value="Active">Permanent</option>
-          <option value="Inactive">Temporary</option>
-          <option value="Inactive">Assistant</option>
-        </Form.Control>
-      </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -135,4 +123,4 @@ const handleSubmit = async (e)=>{
   );
 }
 
-export default AddFaculty;
+export default Sellitem;

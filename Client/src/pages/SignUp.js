@@ -43,7 +43,7 @@ const SignUp =()=>{
 
     return (
       <div className='LandingPage'>
-         <h3 className='Headin' style={{color:'#167bff'}}>IIT Dharwad Faculty Profile</h3>
+         <h3 className='Headin' style={{color:'#167bff'}}>CampusConnect Profile</h3>
          <Form style={{width: "400px"}}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Name</Form.Label>

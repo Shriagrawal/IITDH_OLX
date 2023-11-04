@@ -3,20 +3,22 @@ import ResearchCard from "../components/ResearchCard";
 import Search from "../assets/Search.svg";
 import {researchData} from "../DumyData";
 import plus from "../assets/plus.svg";
-import AddResearch from "../components/AddResearch";
+import AddMerchandise from "../components/AddMerchandise";
+
+
 export default function Home() {
   
   const[researchData,setResearchdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState(researchData);
   useEffect(()=>{
-    async function fetchresearchdata(){
-       let api_research_data = await fetch('http://127.0.0.1:8000/All_Research');
-       api_research_data = await api_research_data.json();
-       console.log(api_research_data)
-       setResearchdata(api_research_data);
-       setFiltereddata(api_research_data);
-    }
-    fetchresearchdata();
+    // async function fetchresearchdata(){
+    //    let api_research_data = await fetch('http://127.0.0.1:8000/All_Research');
+    //    api_research_data = await api_research_data.json();
+    //    console.log(api_research_data)
+    //    setResearchdata(api_research_data);
+    //    setFiltereddata(api_research_data);
+    // }
+    // fetchresearchdata();
   },[])
 
   const [show, setShow] = useState(false);
@@ -29,22 +31,22 @@ export default function Home() {
     );
     setFiltereddata(filtered);
   };
-  const [SortText, setSortText] = useState("Sort by Departmant");
+  const [SortText, setSortText] = useState("Sort by Price");
 
   async function fetch_Faculty_by_deaprtment_research(){
-    let data = await fetch('Faculty_by_deaprtment_research');
-    data = await data.json();
-    console.log(data);
-    setFiltereddata(data);
+    // let data = await fetch('Faculty_by_deaprtment_research');
+    // data = await data.json();
+    // console.log(data);
+    // setFiltereddata(data);
   }
   const SortData = () => {
     let filter = [...researchData];
-    if (SortText === "Sort by Department") {
+    if (SortText === "Sort by Price") {
       fetch_Faculty_by_deaprtment_research();
-      setSortText("Sort by Status");
+      setSortText("Sort by Rating");
     } else {
       filter.sort((a, b) => b.performance_score - a.performance_score);
-      setSortText("Sort by Department");
+      setSortText("Sort by Price");
     }
     setFiltereddata(filter);
   };
@@ -55,7 +57,7 @@ export default function Home() {
   };
   return (
     <div className="container mt-3">
-      {show && <AddResearch handleClose={handleClose} />}
+      {show && <AddMerchandise handleClose={handleClose} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
@@ -122,7 +124,7 @@ export default function Home() {
               onClick={handleShow}
             >
               <img src={plus} style={{ width: "24px" }} />
-              Add
+              Add Merchandise
             </div>
           </div>
         </div>
