@@ -10,8 +10,9 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { GetItemLocalStorage } from "./Services";
-import ShoppingCart from "./shoppingcart/WhishList";
+import ShoppingCart from "./wishlist/WhishList";
 import ChatBox from "./chats/ChatBox";
+import Cards from "./shopingcards/CardPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
