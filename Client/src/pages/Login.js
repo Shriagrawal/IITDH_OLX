@@ -4,13 +4,14 @@ const SignIn =()=>{
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+    // Add logic to check if the user exists in database or not
     e.preventDefault();
     navigate('/Home');
     window.location.reload();
   };
     return (
       <div className='LandingPage'>
-        <h3 className='Headin' style={{color:'#167bff'}}>IIT Dharwad Faculty Profile</h3>
+        <h3 className='Headin' style={{color:'#167bff'}}>CampusConnect</h3>
       <form  style={{width:'400px'}} className='FormPage'>
        
         <h3>Sign In</h3>
