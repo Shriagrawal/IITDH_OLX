@@ -19,7 +19,7 @@ const SignUp =()=>{
      }
   };
 
-  const[Formdata,setformdata]=useState({username:'',email:'',phoneNo:'',password:'',department:'',linkedin_url:'',profile_image:''});
+  const[Formdata,setformdata]=useState({name:'',email:'',phoneNo:'',password:'',department:'',linkdin_url:'',profile_image:''});
   function ChangeData(type,value)
   {
     Formdata[type] = value;
@@ -52,7 +52,7 @@ const SignUp =()=>{
                 type="text"
                 placeholder="name"
                 autoFocus
-                onChange = {(e)=>ChangeData('username',e.target.value)}
+                onChange = {(e)=>ChangeData('name',e.target.value)}
                 required
               />
             </Form.Group>
@@ -77,12 +77,12 @@ const SignUp =()=>{
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Linkedin URL</Form.Label>
+              <Form.Label>Linkdin URL</Form.Label>
               <Form.Control
                 type="link"
                 placeholder="https://lindin.url"
                 autoFocus
-                onChange = {(e)=>ChangeData('linkedin_url',e.target.value)}
+                onChange = {(e)=>ChangeData('linkdin_url',e.target.value)}
                 required
               />
             </Form.Group>
@@ -112,6 +112,15 @@ const SignUp =()=>{
                 onChange = {(e)=>ChangeData('phoneNo',e.target.value)}
                 required
                 autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>linkdin URL</Form.Label>
+              <Form.Control
+                type="text"
+                onChange = {(e)=>ChangeData('linkdin',e.target.value)}
+                autoFocus
+                required
               />
             </Form.Group>
           </Form>

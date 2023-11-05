@@ -13,8 +13,8 @@ const SignIn =()=>{
     }
     else{
       SetItemLocalStorage('user',response);
-      navigate('/Home');
-      window.location.reload();
+     navigate('/Home');
+     window.location.reload();
     }
   };
   const[Formdata,setformdata]=useState({email:'',password:''});

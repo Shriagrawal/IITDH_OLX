@@ -3,6 +3,7 @@
 * { margin: 0px; padding: 0px; }
 body {
 	font-family: "Open Sans", sans-serif; 
+	overflow:hidden;	
 }
 #wrapper{
 	overflow: hidden;
