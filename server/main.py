@@ -144,6 +144,17 @@ def signup(user : dict):
         return {"SUCCESSFULLY ADDED"}
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
+    
+@app.post("/signin")
+def signin(user : dict):
+    collection = database['users']
+    this_user = collection.find()
+
+    if this_user:
+        return 
+    else:
+        raise HTTPException(status_code=500, detail="User doesnt exists")
+    
 
 if __name__ == "__main__":
     import uvicorn

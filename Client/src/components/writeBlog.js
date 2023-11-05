@@ -6,8 +6,6 @@ import Modal from 'react-bootstrap/Modal';
 import {PostDataApiCalls} from "../Services";
 import { useNavigate } from 'react-router-dom';
 
-import {PostDataApiCalls} from "../Services";
-import { useNavigate } from 'react-router-dom';
 function WriteBlog({handleClose}) {
     
 const Navigate = useNavigate();

@@ -18,7 +18,7 @@ const SignUp =()=>{
      }
   };
 
-  const[Formdata,setformdata]=useState({name:'',email:'',phoneNo:'',password:'',department:''});
+  const[Formdata,setformdata]=useState({name:'',email:'',phoneNo:'',password:'',department:'',linkdin:''});
   function ChangeData(type,value)
   {
     Formdata[type] = value;
@@ -100,6 +100,15 @@ const SignUp =()=>{
                 onChange = {(e)=>ChangeData('phoneNo',e.target.value)}
                 required
                 autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>linkdin URL</Form.Label>
+              <Form.Control
+                type="text"
+                onChange = {(e)=>ChangeData('linkdin',e.target.value)}
+                autoFocus
+                required
               />
             </Form.Group>
           </Form>
