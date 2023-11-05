@@ -9,9 +9,8 @@ const url = 'http://127.0.0.1:8000/';
 
 export const PostDataApiCalls = async (endpoint, data) => {
     try {
+        console.log(data);
         // Fetch the CSRF token from your Django backend
-      
-       
         const response = await fetch(url + endpoint, {
             method: 'POST',
             headers: {
