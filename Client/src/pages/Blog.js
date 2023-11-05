@@ -4,6 +4,7 @@ import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import Sellitem from "../components/Sellitem";
 import {GetDataApiCalls} from "../Services";
+import WriteBlog from "../components/writeBlog";
 export default function Home() {
 
   const [data,setdata] = useState([]);
@@ -67,7 +68,7 @@ export default function Home() {
   };
   return (
     <div className="container mt-3">
-      {show && <Sellitem handleClose={handleClose} />}
+      {show && <WriteBlog handleClose={handleClose} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
@@ -78,7 +79,7 @@ export default function Home() {
             alignSelf: "stretch",
           }}
         >
-         <div
+          <div
             style={{
               display: "flex",
               width: "320px",
@@ -108,7 +109,7 @@ border: "1px solid var(--gray-300, #D0D5DD)",
             />
           </div>
           <div style={{ display: "flex", gap: "12px" }}>
-            <div
+            {/* <div
               style={{
                 color: "black",
                 display: "flex",
@@ -122,7 +123,7 @@ border: "1px solid var(--gray-300, #D0D5DD)",
               onClick={SortData}
             >
               <div className="Box">{SortText}</div>
-            </div>
+            </div> */}
             <div
               style={{
                 color: "black",
@@ -136,8 +137,7 @@ border: "1px solid var(--gray-300, #D0D5DD)",
               className="Box"
               onClick={handleShow}
             >
-              <img src={plus} style={{ width: "24px" }} />
-              Sell
+              Write a Blog
             </div>
           </div>
         </div>

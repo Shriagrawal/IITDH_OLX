@@ -95,25 +95,7 @@ export default function Alumni() {
               placeholder="Search by Name, Email"
             />
           </div>
-          <div style={{ display: "flex", gap: "12px" }}>
-
-            <div
-              style={{
-                color: "black",
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                background: "#167bff",
-                color: "white",
-                cursor: "pointer",
-              }}
-              className="Box"
-              onClick={handleShow}
-            >
-              <img src={plus} style={{ width: "24px" }} />
-              Add Alumni
-            </div>
-          </div>
+         
         </div>
 
         <div

@@ -14,6 +14,7 @@ import { GetItemLocalStorage } from "./Services";
 import ShoppingCart from "./wishlist/WhishList";
 import ChatBox from "./chats/ChatBox";
 import Cards from "./shopingcards/CardPage";
+import Blog from "./pages/Blog";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -56,6 +57,7 @@ function App() {
         <Route path="/Profile" element={isAuthenticated ? <Profile /> : <Navigate to="/signIn" replace />} />
         <Route path="/Profile/:id" element={isAuthenticated ? <Profile /> : <Navigate to="/signIn" replace />} />
         <Route path="/Home" element={isAuthenticated ? <Home /> : <Navigate to="/signIn" replace />} />
+        <Route path="/Blog" element={isAuthenticated ? <Blog /> : <Navigate to="/signIn" replace />} />
       </Routes>
     </BrowserRouter>
   );

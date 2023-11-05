@@ -68,11 +68,14 @@ export default function Home() {
             alignSelf: "stretch",
           }}
         >
-          <div
+        <div
             style={{
               display: "flex",
               width: "320px",
-              padding: "10px 14px",
+              height:'50px',
+background:'#fff',
+borderRadius: "var(--radius-medium, 8px)",
+border: "1px solid var(--gray-300, #D0D5DD)",
               alignItems: "center",
               gap: "8px",
               alignSelf: "stretch",
@@ -91,7 +94,7 @@ export default function Home() {
               }}
               id="search"
               onChange={SearchData}
-              placeholder="Search by Research Title or Professor Name"
+              placeholder="Search by Name, Email"
             />
           </div>
           <div style={{ display: "flex", gap: "12px" }}>

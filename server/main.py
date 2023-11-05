@@ -14,12 +14,13 @@ from pymongo import MongoClient
 
 
 app = FastAPI()
-
-app.add_middleware(CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # MongoDB connection URL
 mongo_uri = "mongodb+srv://pawanmittal2002:abhi2811@cluster0.9vjktto.mongodb.net/"
@@ -44,6 +45,13 @@ def get_users():
     collection = database['users']
     users = collection.find()
     return users
+
+@app.get("/items/")
+def get_users():
+    collection = database['products']
+    users = collection.find()
+    return users
+
 
 @app.get("/users/{username}")
 def get_user(username: str):
@@ -77,7 +85,7 @@ def add_item(new_item : dict):
     collection = database['products']
     result = collection.insert_one(products_dict)
     if(result):
-        return {"Data added successfully"}
+        return {result}
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
     

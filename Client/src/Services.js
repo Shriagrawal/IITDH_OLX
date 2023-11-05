@@ -10,24 +10,18 @@ const url = 'http://127.0.0.1:8000/';
 export const PostDataApiCalls = async (endpoint, data) => {
     try {
         // Fetch the CSRF token from your Django backend
-       let csrfTokenResponse = await fetch('http://127.0.0.1:8000/get_csrf_token/', {
-            method: 'GET',
-            credentials: 'include', // Include cookies
-        });
-        csrfTokenResponse=await csrfTokenResponse.json();
-        let csrfToken = csrfTokenResponse.csrfToken;
-
-        // Include the CSRF token in the headers of your POST request
+      
+       
         const response = await fetch(url + endpoint, {
             method: 'POST',
             headers: {
-                'X-CSRFToken': csrfToken, // Include the CSRF token here
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
 
         const responseData = await response.json();
+        console.log(responseData);
         return responseData;
     } catch (error) {
         console.log(error);

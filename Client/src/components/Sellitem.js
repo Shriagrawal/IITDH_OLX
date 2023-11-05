@@ -13,7 +13,7 @@ function Sellitem({handleClose}) {
 const Navigate = useNavigate();
 const handleSubmit = async (e)=>{
   e.preventDefault()
-  const response = await PostDataApiCalls('add_faculty',formdata)
+  const response = await PostDataApiCalls('add_item',formdata)
   if(response.message === 'Failed'){
     console.log(response)
   }  
@@ -23,7 +23,7 @@ const handleSubmit = async (e)=>{
   }
 }
 
-  const[formdata,setformdata] = useState({product_title:'k',description:'k',price:'k',image:'k',condition:'k',status:'k'})
+  const[formdata,setformdata] = useState({product_title:'k',description:'k',price:'k',image:'k',category:'k',status:'Not Sold'})
   
   function add_data(data_type,data_val)
   {
@@ -86,28 +86,21 @@ const handleSubmit = async (e)=>{
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Image</Form.Label>
+              <Form.Label>Image Link</Form.Label>
               <Form.Control
-                type="file"
+                type="link"
                 onChange={(e)=>add_data('image',e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Condition</Form.Label>
+              <Form.Label>Category</Form.Label>
               <Form.Control
                 type="text"
                 autoFocus
-                onChange={(e)=>add_data('condition',e.target.value)}
+                onChange={(e)=>add_data('category',e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Status</Form.Label>
-              <Form.Control
-                type="tel"
-                autoFocus
-                onChange={(e)=>add_data('status',e.target.value)}
-              />
-            </Form.Group>
+          
           </Form>
         </Modal.Body>
         <Modal.Footer>
