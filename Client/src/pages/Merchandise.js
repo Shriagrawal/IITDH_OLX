@@ -139,9 +139,9 @@ border: "1px solid var(--gray-300, #D0D5DD)",
             gap: "24px",
           }}
         >
-          {filtereddata.map((item, index) => (
-            <merchandiseCard key={index} data={item} />
-          ))}
+          {/* {filtereddata.map((item, index) => (
+            <ResearchCard key={index} data={item} />
+          ))} */}
         </div>
       </div>
     </div>
