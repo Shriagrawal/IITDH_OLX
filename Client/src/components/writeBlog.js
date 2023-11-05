@@ -17,11 +17,14 @@ const handleSubmit = async (e)=>{
 
   }  
   else{
-    Navigate('/Home')
     handleClose();
   }
 }
 let createdByUser=localStorage.getItem('user');
+if(!createdByUser)
+{
+  createdByUser={_id:'2',name:'hi'}
+}
 
   const[formdata,setformdata] = useState({createdBy:createdByUser._id,title:'',content:'',category:'',createdbyName:createdByUser.name})
    
@@ -40,7 +43,7 @@ let createdByUser=localStorage.getItem('user');
      for(const type in formdata)
      { 
       console.log(type," " ,formdata[type].length);
-       if(formdata[type].length === 0)
+       if(formdata[type]?.length === 0)
        {
          a=true;
          break;

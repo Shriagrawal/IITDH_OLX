@@ -114,15 +114,6 @@ const SignUp =()=>{
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>linkdin URL</Form.Label>
-              <Form.Control
-                type="text"
-                onChange = {(e)=>ChangeData('linkdin',e.target.value)}
-                autoFocus
-                required
-              />
-            </Form.Group>
           </Form>
           <Button variant="primary" onClick={handleSubmit} disabled = {disabled_button} >
             Submit

@@ -3,8 +3,21 @@ from fastapi import FastAPI,HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 import json  
+import requests
 
-# from Models import User  # Replace with your actual module and User model import
+
+def get_info(linkdinurl):
+    api_endpoint = 'https://nubela.co/proxycurl/api/v2/linkedin'
+    linkedin_profile_url = linkdinurl
+    api_key = 'wJlWzaWQf-t8nxUzdYT-UA'
+    headers = {'Authorization': 'Bearer ' + api_key}
+
+    response = requests.get(api_endpoint,
+                            params={'url': linkedin_profile_url,'skills': 'include'},
+                            headers=headers)
+    profile_data = response.json()
+    return profile_data
+    # from Models import User  # Replace with your actual module and User model import
 
 app = FastAPI()
 
@@ -30,17 +43,20 @@ async def root():
 @app.get("/users/")
 def get_users():
     collection = database['users']
-    users = collection.find({'_id': 0})
+    users = collection.find({})
     json_data = []
     for document in users:
         # document = json.dumps(document, cls=JSONEncoder)
         json_data.append(document)
     return json_data
+
+
+
 
 @app.get("/items/")
-def get_users():
+def get_items():
     collection = database['products']
-    users = collection.find({'_id': 0})
+    users = collection.find({})
     json_data = []
     for document in users:
         # document = json.dumps(document, cls=JSONEncoder)
@@ -48,13 +64,13 @@ def get_users():
     return json_data
 
 
-@app.get("/users/{username}")
-def get_user(username: str):
+@app.get("/users/{name}")
+def get_user(name: str):
     collection = database['users']
-    user = collection.find_one({"username": username}, {'_id': 0})
+    user = collection.find_one({"name": name})
 
     if user:
-        return {"user_id": user.id, "username": user.username, "email": user.email}
+        return user
     else:
         return {"message": "User not found"}
 
@@ -65,7 +81,7 @@ async def add_user(new_user : dict):
     users_dict = new_user
     collection = database.get_collection('users')
 
-    query = {"username": new_user["username"]}
+    query = {"name": new_user["name"]}
     update = {"$set": new_user}
     result = collection.update_one(query, update, upsert=True)
 
@@ -107,6 +123,40 @@ def add_merchandise(new_item : dict):
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
 
+@app.post("/add_blogs")
+def add_blogs(new_item : dict):
+    new_dict = new_item
+    collection = database.get_collection('blogs')
+
+    query = {"title": new_dict["title"]}
+    update = {"$set": new_dict}
+    result = collection.update_one(query, update, upsert=True)
+
+    if result:
+        return "SUCCESSFULLY ADDED"
+    else:
+        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
+
+
+@app.get("/merchandise")
+def get_merchandise():
+    collection = database.get_collection('merchandise')
+    result = collection
+
+    if result:
+        return result
+    else:
+        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
+
+@app.get("/blogs")
+def get_blogs():
+    collection = database.get_collection('blogs')
+    result = collection
+
+    if result:
+        return result
+    else:
+        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
 
 # @app.post("/donations")
 # def add_donations(item : dict):
@@ -123,7 +173,7 @@ def add_alumni(item : dict):
     new_dict = item
     collection = database['alumni']
     
-    query = {"username": new_dict["username"]}
+    query = {"name": new_dict["name"]}
     update = {"$set": new_dict}
     result = collection.update_one(query, update, upsert=True)
     if result:
@@ -136,26 +186,33 @@ def add_alumni(item : dict):
 def signup(user : dict):
     new_user = user
     collection = database['users']
-
-    query = {"username": new_user["username"]}
+    profile_data=get_info(user['linkdinurl'])
+    new_user.heading=profile_data['headline']
+    new_user.experiences=profile_data['experiences']
+    new_user.profile_data=profile_data
+    print(new_user['name'],new_user)
+    query = {"name": new_user["name"]}
     update = {"$set": new_user}
+    print(collection)
     result = collection.update_one(query, update, upsert=True)
     if result:
-        return {"SUCCESSFULLY ADDED"}
+        return result
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
     
 @app.post("/signin")
 def signin(user : dict):
-    collection = database['users']
-    this_user = collection.find()
+    users_dict = user
+    collection = database.get_collection('users')
 
-    if this_user:
-        return 
+    query = {"email": user["email"],'passowrd':user['password']}
+    result = collection.find_one(query)
+
+    if result:
+        return result
     else:
-        raise HTTPException(status_code=500, detail="User doesnt exists")
+        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
     
-
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
