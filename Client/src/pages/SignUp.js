@@ -1,7 +1,7 @@
 import React, {useState}from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {PostDataApiCalls} from "../Services";
+import {PostDataApiCalls,SetItemLocalStorage} from "../Services";
 import { useNavigate } from 'react-router-dom';
 const SignUp =()=>{
   const navigate = useNavigate();
@@ -13,12 +13,13 @@ const SignUp =()=>{
       console.log(response)
      }
      else{
+      SetItemLocalStorage('user',response);
       navigate('/Home');
       window.location.reload();
      }
   };
 
-  const[Formdata,setformdata]=useState({name:'',email:'',phoneNo:'',password:'',department:''});
+  const[Formdata,setformdata]=useState({name:'',email:'',phoneNo:'',password:'',department:'',linkdin_url:'',profile_image:''});
   function ChangeData(type,value)
   {
     Formdata[type] = value;
@@ -71,6 +72,17 @@ const SignUp =()=>{
                 type="link"
                 placeholder="https://example.image"
                 autoFocus
+                onChange = {(e)=>ChangeData('profile_image',e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Linkdin URL</Form.Label>
+              <Form.Control
+                type="link"
+                placeholder="https://lindin.url"
+                autoFocus
+                onChange = {(e)=>ChangeData('linkdin_url',e.target.value)}
                 required
               />
             </Form.Group>

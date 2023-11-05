@@ -148,9 +148,9 @@ border: "1px solid var(--gray-300, #D0D5DD)",
           }}
         >
           {}
-          {/* {filtereddata.map((item, index) => (
+          {filtereddata.map((item, index) => (
             <ProfileCard key={index} data={item} />
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

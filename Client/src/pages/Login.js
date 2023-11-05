@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {PostDataApiCalls} from "../Services";
+import {PostDataApiCalls,SetItemLocalStorage} from "../Services";
 import { useNavigate } from 'react-router-dom';
 const SignIn =()=>{
   const navigate = useNavigate();
@@ -12,11 +12,12 @@ const SignIn =()=>{
      console.log(response)
     }
     else{
+      SetItemLocalStorage('user',response);
      navigate('/Home');
      window.location.reload();
     }
   };
-  const[Formdata,setformdata]=useState({name:'',email:'',phoneNo:'',password:'',department:''});
+  const[Formdata,setformdata]=useState({email:'',password:''});
   function ChangeData(type,value)
   {
     Formdata[type] = value;

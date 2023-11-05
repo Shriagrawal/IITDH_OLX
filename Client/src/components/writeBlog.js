@@ -5,9 +5,6 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import {PostDataApiCalls} from "../Services";
 import { useNavigate } from 'react-router-dom';
-
-import {PostDataApiCalls} from "../Services";
-import { useNavigate } from 'react-router-dom';
 function WriteBlog({handleClose}) {
     
 const Navigate = useNavigate();
@@ -24,8 +21,9 @@ const handleSubmit = async (e)=>{
     handleClose();
   }
 }
+let createdByUser=localStorage.getItem('user');
 
-  const[formdata,setformdata] = useState({createdBy:'',title:'',content:'',category:''})
+  const[formdata,setformdata] = useState({createdBy:createdByUser._id,title:'',content:'',category:'',createdbyName:createdByUser.name})
    
   function add_data(data_type,data_val)
   {
