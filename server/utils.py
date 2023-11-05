@@ -1,6 +1,5 @@
 import jwt
 import datetime
-from time import sleep
 
 SECRET_KEY = 'your_secret_key'
 
