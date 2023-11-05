@@ -3,8 +3,7 @@ import PublicationCard from "../components/PublicationCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddAlumni from "../components/AddAlumni";
-import {publicationData} from "../DumyData";
-
+import {GetDataApiCalls} from "../Services";
 
 export default function Alumni() {
 
@@ -12,11 +11,9 @@ export default function Alumni() {
   const [filtereddata, setFiltereddata] = useState(publicationData);
   useEffect(()=>{
     async function publication(){
-    // let api_publication_data = await fetch('http://127.0.0.1:8000/All_Publications');
-    // api_publication_data = await api_publication_data.json();
-    // setpublicationData(api_publication_data);
-    // setFiltereddata(api_publication_data);
-    // console.log(api_publication_data);
+    let all_user_data = await GetDataApiCalls('users');
+    setpublicationData(all_user_data);
+    setFiltereddata(all_user_data);
     }    
    publication();
   },[]);

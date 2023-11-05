@@ -2,69 +2,112 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import {PostDataApiCalls} from "../Services";
+import { useNavigate } from 'react-router-dom';
 
 
-function AddMerchandise({handleClose}) {
+
+function Sellitem({handleClose}) {
+
+  
+const Navigate = useNavigate();
+const handleSubmit = async (e)=>{
+  e.preventDefault()
+  const response = await PostDataApiCalls('add_merchandise',formdata)
+  if(response.message === 'Failed'){
+    console.log(response)
+  }  
+  else{
+    Navigate('/Home')
+    handleClose();
+  }
+}
+
+  const[formdata,setformdata] = useState({product_title:'',description:'',price:'',image:'',category:'',status:'Not Sold'})
+   
+  function add_data(data_type,data_val)
+  {
+    formdata[data_type] = data_val;
+    setformdata(formdata);
+    console.log(formdata);
+    all_required();
+  }
+  const[button_disabled,setbutton] = useState(true);
+  
+  function all_required()
+  {
+    let a = false;
+     for(const type in formdata)
+     { 
+      console.log(type," " ,formdata[type].length);
+       if(formdata[type].length === 0)
+       {
+         a=true;
+         break;
+       }
+       
+     }
+     setbutton(a);
+  }
 
   return (
     <>
       <Modal show='true' centered='true'>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Add Merchandise</Modal.Title>
+          <Modal.Title>Sell item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Merchandise Title</Form.Label>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Product Title</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Title"
+                placeholder="product title"
                 autoFocus
+                onChange={(e)=>add_data('product_title',e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Write a short description about the product."
+                autoFocus
+                onChange={(e)=>add_data('description',e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Price</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Price"
+                type="number"
+                placeholder="0"
                 autoFocus
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
-        <Form.Label>Sizes</Form.Label>
-        <Form.Control
-          as="select"
-          autoFocus
-        >
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        </Form.Control>
-      </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Qty</Form.Label>
-              <Form.Control
-                type="text"
-                autoFocus
+                onChange={(e)=>add_data('price',e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Upload Image</Form.Label>
+              <Form.Label>Image Link</Form.Label>
               <Form.Control
-                type="file"
-                autoFocus
+                type="link"
+                onChange={(e)=>add_data('image',e.target.value)}
               />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                type="text"
+                autoFocus
+                onChange={(e)=>add_data('category',e.target.value)}
+              />
+            </Form.Group>
+          
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit} disabled={button_disabled}>
             Save Changes
           </Button>
         </Modal.Footer>
@@ -73,4 +116,4 @@ function AddMerchandise({handleClose}) {
   );
 }
 
-export default AddMerchandise;
+export default Sellitem;

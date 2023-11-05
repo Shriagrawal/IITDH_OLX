@@ -8,23 +8,23 @@ import WriteBlog from "../components/writeBlog";
 export default function Home() {
 
   const [data,setdata] = useState([]);
-  const [filtereddata, setFiltereddata] = useState(data);
+  const [filtereddata, setFiltereddata] = useState([]);
   useEffect(()=>{
-  //  async function fetchdata() {
-    // try{
-    //   let api_data = await GetDataApiCalls('instructors/');
-    //   if(api_data.message === 'Failed')
-    //   api_data = [];
-    //   setdata(api_data);
-    //   console.log(api_data);
-    //   setFiltereddata(api_data);
-    // }
-    // catch(error)
-    // {
-    //   console.log(error);
-    // }
-    // }
-    // fetchdata();
+   async function fetchdata() {
+    try{
+      let blogs = await GetDataApiCalls('blogs/');
+      if(blogs.message === 'Failed')
+      blogs = [];
+      setdata(blogs);
+      console.log(blogs);
+      setFiltereddata(blogs);
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+    }
+    fetchdata();
   },[]);
 
   const [show, setShow] = useState(false);
@@ -33,34 +33,14 @@ export default function Home() {
     const search = document.getElementById("search").value;
     const filtered = data.filter(
       (item) =>
-        item.name.toLowerCase().includes(search.toLowerCase()) ||
-        item.email.toLowerCase().includes(search.toLowerCase())
+        item.title.toLowerCase().includes(search.toLowerCase()) ||
+        item.category.toLowerCase().includes(search.toLowerCase())
     );
     setFiltereddata(filtered);
   };
 
 
-  const [SortText, setSortText] = useState("Sort by Price");
-
-  async function fetch_department_sorted_data(){
-    // let sorted_data = await fetch('http://127.0.0.1:8000/department_sorted_instructors');
-    // sorted_data = await sorted_data.json();
-    // setFiltereddata(sorted_data);
-  }
-   
-  const SortData = () => {
-    let filter = [...data];
-    if (SortText === "Sort by Price") {
-      // filter.sort((a, b) => a.department.localeCompare(b.department));
-      fetch_department_sorted_data();
-      setSortText("Sort by Rating");
-    } else {
-      filter.sort((a, b) => b.performance_score - a.performance_score);
-      setSortText("Sort by Price");
-    }
-    setFiltereddata(filter);
-  };
-
+ 
   const handleClose = () => setShow(false);
   const handleShow = () => {
     console.log(show);
@@ -109,21 +89,7 @@ border: "1px solid var(--gray-300, #D0D5DD)",
             />
           </div>
           <div style={{ display: "flex", gap: "12px" }}>
-            {/* <div
-              style={{
-                color: "black",
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                background: "#167bff",
-                color: "white",
-                borderRadius: "8px",
-                cursor: "pointer",
-              }}
-              onClick={SortData}
-            >
-              <div className="Box">{SortText}</div>
-            </div> */}
+           
             <div
               style={{
                 color: "black",

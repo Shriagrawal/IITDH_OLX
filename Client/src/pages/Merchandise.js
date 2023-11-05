@@ -1,51 +1,49 @@
 import React, { useState,useEffect } from "react";
-import ResearchCard from "../components/ResearchCard";
+import merchandiseCard from "../components/merchandiseCard";
 import Search from "../assets/Search.svg";
-import {researchData} from "../DumyData";
 import plus from "../assets/plus.svg";
 import AddMerchandise from "../components/AddMerchandise";
-
+import {GetDataApiCalls} from "../Services";
 
 export default function Home() {
   
-  const[researchData,setResearchdata] = useState([]);
-  const [filtereddata, setFiltereddata] = useState(researchData);
+  const[merchandiseData,setmerchandisedata] = useState([]);
+  const [filtereddata, setFiltereddata] = useState([]);
   useEffect(()=>{
-    // async function fetchresearchdata(){
-    //    let api_research_data = await fetch('http://127.0.0.1:8000/All_Research');
-    //    api_research_data = await api_research_data.json();
-    //    console.log(api_research_data)
-    //    setResearchdata(api_research_data);
-    //    setFiltereddata(api_research_data);
-    // }
-    // fetchresearchdata();
+    async function fetchmerchandisedata(){
+       let merchandise = await GetDataApiCalls('merchandise');
+       console.log(merchandise)
+       if(merchandise.message === 'Failed') {
+        merchandise=[]
+       }
+       setmerchandisedata(merchandise);
+       setFiltereddata(merchandise);
+    }
+    fetchmerchandisedata();
   },[])
 
   const [show, setShow] = useState(false);
+ 
   const SearchData = () => {
     const search = document.getElementById("search").value;
-    const filtered = researchData.filter(
+    const filtered = merchandiseData.filter(
       (item) =>
-        item.title.toLowerCase().includes(search.toLowerCase()) ||
-        item.profName.toLowerCase().includes(search.toLowerCase())
+        item.product_title.toLowerCase().includes(search.toLowerCase()) ||
+        item.category.toLowerCase().includes(search.toLowerCase())
     );
     setFiltereddata(filtered);
   };
   const [SortText, setSortText] = useState("Sort by Price");
 
-  async function fetch_Faculty_by_deaprtment_research(){
-    // let data = await fetch('Faculty_by_deaprtment_research');
-    // data = await data.json();
-    // console.log(data);
-    // setFiltereddata(data);
-  }
+ 
+  
   const SortData = () => {
-    let filter = [...researchData];
+    let filter = [...merchandiseData];
     if (SortText === "Sort by Price") {
-      fetch_Faculty_by_deaprtment_research();
-      setSortText("Sort by Rating");
+     filter.sort((a, b) => a.price.localeCompare(b.department));
+      setSortText("Sort by Category");
     } else {
-      filter.sort((a, b) => b.performance_score - a.performance_score);
+      filter.sort((a, b) => b.category - a.category);
       setSortText("Sort by Price");
     }
     setFiltereddata(filter);
@@ -142,7 +140,7 @@ border: "1px solid var(--gray-300, #D0D5DD)",
           }}
         >
           {filtereddata.map((item, index) => (
-            <ResearchCard key={index} data={item} />
+            <merchandiseCard key={index} data={item} />
           ))}
         </div>
       </div>
