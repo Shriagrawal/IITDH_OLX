@@ -43,29 +43,15 @@ async def root():
 @app.get("/users/")
 def get_users():
     collection = database['users']
-    users = collection.find({})
+    users = collection.find({},{"_id":0})
     json_data = []
     for document in users:
         # document = json.dumps(document, cls=JSONEncoder)
         json_data.append(document)
     return json_data
 
-
-
-
-@app.get("/items/")
-def get_items():
-    collection = database['products']
-    users = collection.find({})
-    json_data = []
-    for document in users:
-        # document = json.dumps(document, cls=JSONEncoder)
-        json_data.append(document)
-    return json_data
-
-
-@app.get("/users/{name}")
-def get_user(name: str):
+@app.get("/users/{username}")
+def get_user(username: str):
     collection = database['users']
     user = collection.find_one({"name": name})
 
@@ -74,10 +60,31 @@ def get_user(name: str):
     else:
         return {"message": "User not found"}
 
+@app.get("/items/")
+def get_items():
+    collection = database['products']
+    users = collection.find({},{"_id":0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    return json_data
+
+@app.get("/merchandise/")
+def get_merchandises():
+    collection = database['merchandise']
+    users = collection.find({},{"_id":0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    print(json_data)
+    return json_data
+
 
 @app.post("/add_user")
 async def add_user(new_user : dict):
-    print(new_user)
+    # print(new_user)
     users_dict = new_user
     collection = database.get_collection('users')
 
@@ -94,9 +101,9 @@ async def add_user(new_user : dict):
 @app.post("/add_item")
 def add_item(new_item : dict):
     products_dict = new_item
-    print(new_item)
+    # print(new_item)
     collection = database.get_collection('products')
-    print(collection)
+    # print(collection)
 
     query = {"product_title": products_dict["product_title"]}
     update = {"$set": products_dict}
@@ -202,16 +209,14 @@ def signup(user : dict):
     
 @app.post("/signin")
 def signin(user : dict):
-    users_dict = user
-    collection = database.get_collection('users')
+    collection = database['users']
+    # print(user)
+    user = collection.find_one({"email": user['email'], "password": user['password']},{"_id": 0})
 
-    query = {"email": user["email"],'passowrd':user['password']}
-    result = collection.find_one(query)
-
-    if result:
-        return result
+    if user:
+        return user
     else:
-        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
+        return {"message": "User not found"}
     
 if __name__ == "__main__":
     import uvicorn
