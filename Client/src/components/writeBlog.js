@@ -4,6 +4,48 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 function WriteBlog({handleClose}) {
+    
+const Navigate = useNavigate();
+const handleSubmit = async (e)=>{
+  e.preventDefault()
+  const response = await PostDataApiCalls('add_blogs',formdata)
+  if(response.message === 'Failed'){
+    console.log(response)
+
+  }  
+  else{
+    Navigate('/Home')
+    handleClose();
+  }
+}
+
+  const[formdata,setformdata] = useState({createdBy:'',title:'',content:'',category:''})
+   
+  function add_data(data_type,data_val)
+  {
+    formdata[data_type] = data_val;
+    setformdata(formdata);
+    console.log(formdata);
+    all_required();
+  }
+  const[button_disabled,setbutton] = useState(true);
+  
+  function all_required()
+  {
+    let a = false;
+     for(const type in formdata)
+     { 
+      console.log(type," " ,formdata[type].length);
+       if(formdata[type].length === 0)
+       {
+         a=true;
+         break;
+       }
+       
+     }
+     setbutton(a);
+  }
+
   return (
         <>
           <Modal show='true' centered='true'>
@@ -18,6 +60,7 @@ function WriteBlog({handleClose}) {
                     type="text"
                     placeholder="Blog Title"
                     autoFocus
+                    onChange = {(e)=>add_data('title',e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -27,6 +70,7 @@ function WriteBlog({handleClose}) {
                     rows={3} 
                     placeholder="Write your blog here"
                     autoFocus
+                    onChange = {(e)=>add_data('content',e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
@@ -35,6 +79,7 @@ function WriteBlog({handleClose}) {
               type="text"
               placeholder="Games"
               autoFocus
+              Content = {(e)=>add_data('category',e.target.value)}
             >
             </Form.Control>
           </Form.Group>
@@ -45,7 +90,7 @@ function WriteBlog({handleClose}) {
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleClose}>
+              <Button variant="primary" onClick={handleSubmit} disabled={button_disabled}>
                 Save Changes
               </Button>
             </Modal.Footer>
