@@ -39,7 +39,6 @@ export default function Home() {
     setFiltereddata(filtered);
   };
 
-
  
   const handleClose = () => setShow(false);
   const handleShow = () => {

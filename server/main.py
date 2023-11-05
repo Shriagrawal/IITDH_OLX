@@ -38,15 +38,34 @@ def get_users():
     return json_data
 
 @app.get("/items/")
-def get_users():
+def get_items():
     collection = database['products']
-    users = collection.find({'_id': 0})
+    all_items = collection.find({'_id': 0})
     json_data = []
-    for document in users:
+    for document in all_items:
         # document = json.dumps(document, cls=JSONEncoder)
         json_data.append(document)
     return json_data
 
+@app.get("/merchandise")
+def get_merchandise():
+    collection = database['merchandise']
+    all_merchandise = collection.find({'_id': 0})
+    json_data = []
+    for document in all_merchandise:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    return json_data
+
+@app.get("/blogs/")
+def get_blogs():
+    collection = database['blogs']
+    all_blogs = collection.find({'_id': 0})
+    json_data = []
+    for document in all_blogs:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    return json_data
 
 @app.get("/users/{username}")
 def get_user(username: str):
@@ -58,11 +77,7 @@ def get_user(username: str):
     else:
         return {"message": "User not found"}
     
-@app.get("/merchandise")
-def all_mechandise(new_item : dict):
-    collection = database['merchandise']
-    all_products = collection.find()
-    return all_products
+
 
 @app.post("/add_user")
 async def add_user(new_user : dict):
@@ -158,6 +173,7 @@ def signin(user:dict):
     if result is None:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     return user
+
 
 
 if __name__ == "__main__":

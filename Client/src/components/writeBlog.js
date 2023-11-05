@@ -3,9 +3,13 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import {PostDataApiCalls} from "../Services";
+import { useNavigate } from 'react-router-dom';
+
 function WriteBlog({handleClose}) {
     
 const Navigate = useNavigate();
+
 const handleSubmit = async (e)=>{
   e.preventDefault()
   const response = await PostDataApiCalls('add_blogs',formdata)
