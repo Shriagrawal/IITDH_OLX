@@ -13,6 +13,7 @@ export const PostDataApiCalls = async (endpoint, data) => {
         // Fetch the CSRF token from your Django backend
         const response = await fetch(url + endpoint, {
             method: 'POST',
+            mode:'cors',
             headers: {
                 'Content-Type': 'application/json',
             },
