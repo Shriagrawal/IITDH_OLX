@@ -144,6 +144,24 @@ def signup(user : dict):
         return {"SUCCESSFULLY ADDED"}
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
+    
+
+@app.get("/signin")
+def signup(user : dict):
+    new_user = user
+    collection = database['users']
+
+    from utils import decrypt_password
+
+    # takes in username and decrypted hash password as a query to check in database
+    query = {"username": new_user["username"], "password": decrypt_password(new_user["password"])}
+
+    result = collection.find_one(query)
+
+    if result:
+        return {"Verified"}
+    else:
+        raise {"Not Verified"}
 
 if __name__ == "__main__":
     import uvicorn
