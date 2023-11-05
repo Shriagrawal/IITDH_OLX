@@ -10,7 +10,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -38,34 +38,15 @@ def get_users():
     return json_data
 
 @app.get("/items/")
-def get_items():
+def get_users():
     collection = database['products']
-    all_items = collection.find({'_id': 0})
+    users = collection.find({'_id': 0})
     json_data = []
-    for document in all_items:
+    for document in users:
         # document = json.dumps(document, cls=JSONEncoder)
         json_data.append(document)
     return json_data
 
-@app.get("/merchandise")
-def get_merchandise():
-    collection = database['merchandise']
-    all_merchandise = collection.find({'_id': 0})
-    json_data = []
-    for document in all_merchandise:
-        # document = json.dumps(document, cls=JSONEncoder)
-        json_data.append(document)
-    return json_data
-
-@app.get("/blogs/")
-def get_blogs():
-    collection = database['blogs']
-    all_blogs = collection.find({'_id': 0})
-    json_data = []
-    for document in all_blogs:
-        # document = json.dumps(document, cls=JSONEncoder)
-        json_data.append(document)
-    return json_data
 
 @app.get("/users/{username}")
 def get_user(username: str):
@@ -76,7 +57,6 @@ def get_user(username: str):
         return {"user_id": user.id, "username": user.username, "email": user.email}
     else:
         return {"message": "User not found"}
-    
 
 
 @app.post("/add_user")
@@ -164,17 +144,6 @@ def signup(user : dict):
         return {"SUCCESSFULLY ADDED"}
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
-    
-@app.post("/signin")
-def signin(user:dict):
-    collection = database['users']
-
-    result = collection.find()
-    if result is None:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    return user
-
-
 
 if __name__ == "__main__":
     import uvicorn
