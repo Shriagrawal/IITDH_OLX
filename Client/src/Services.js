@@ -14,12 +14,12 @@ export const PostDataApiCalls = async (endpoint, data) => {
         const response = await fetch(url + endpoint, {
             method: 'POST',
             mode:'cors',
+            mode: "cors",
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-
         const responseData = await response.json();
         console.log(responseData);
         return responseData;

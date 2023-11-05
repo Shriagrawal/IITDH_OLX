@@ -125,9 +125,9 @@ export default function Events() {
             gap: "24px",
           }}
         >
-          {filtereddata.map((item, index) => (
+          {/* {filtereddata.map((item, index) => (
             <PublicationCard key={index} data={item} />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

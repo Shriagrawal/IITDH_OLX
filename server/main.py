@@ -1,17 +1,13 @@
 import uvicorn
 from fastapi import FastAPI,HTTPException
-# from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
-from fastapi import FastAPI,Depends
-# from sqlalchemy import create_engine, select
-# from sqlalchemy.orm import session,sessionmaker
-# from Models import User
 from pymongo import MongoClient
+import json  
 
 # from Models import User  # Replace with your actual module and User model import
 
 app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -25,14 +21,7 @@ mongo_uri = "mongodb+srv://pawanmittal2002:abhi2811@cluster0.9vjktto.mongodb.net
 
 # Create a MongoDB client
 client = MongoClient(mongo_uri)
-
-# Access a specific MongoDB database
 database = client["IIT_DH_OLX"]
-# collection_name = ""
-
-# if collection_name not in database.list_collection_names():
-#     database.create_collection(collection_name)
-
 
 @app.get("/")
 async def root():
@@ -41,20 +30,28 @@ async def root():
 @app.get("/users/")
 def get_users():
     collection = database['users']
-    users = collection.find()
-    return users
+    users = collection.find({'_id': 0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    return json_data
 
 @app.get("/items/")
 def get_users():
     collection = database['products']
-    users = collection.find()
-    return users
+    users = collection.find({'_id': 0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    return json_data
 
 
 @app.get("/users/{username}")
 def get_user(username: str):
     collection = database['users']
-    user = collection.find_one({"username": username})
+    user = collection.find_one({"username": username}, {'_id': 0})
 
     if user:
         return {"user_id": user.id, "username": user.username, "email": user.email}
@@ -78,7 +75,7 @@ async def add_user(new_user : dict):
     result = collection.update_one(query, update, upsert=True)
 
     if result:
-        return {"UPDATED SUCESSFULLY"}
+        return "UPDATED SUCESSFULLY"
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
     
@@ -87,15 +84,16 @@ async def add_user(new_user : dict):
 def add_item(new_item : dict):
     products_dict = new_item
     print(new_item)
-    collection = database['products']
+    collection = database.get_collection('products')
     print(collection)
 
     query = {"product_title": products_dict["product_title"]}
     update = {"$set": products_dict}
     result = collection.update_one(query, update, upsert=True)
 
+    # print(result)
     if(result):
-        return {result}
+        return "OK"
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
     
@@ -103,14 +101,14 @@ def add_item(new_item : dict):
 @app.post("/add_merchandise")
 def add_merchandise(new_item : dict):
     new_dict = new_item
-    collection = database['merchandise']
+    collection = database.get_collection('merchandise')
 
     query = {"product_title": new_dict["product_title"]}
     update = {"$set": new_dict}
     result = collection.update_one(query, update, upsert=True)
 
     if result:
-        return {"SUCCESSFULLY ADDED"}
+        return "SUCCESSFULLY ADDED"
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
 
@@ -164,4 +162,4 @@ def signin(user:dict):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
