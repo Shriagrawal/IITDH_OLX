@@ -12,6 +12,7 @@ export default function Home() {
    async function fetchdata() {
     try{
       let api_data = await GetDataApiCalls('items/');
+      console.log(api_data)
       if(api_data.message === 'Failed')
       api_data = [];
       setdata(api_data);
