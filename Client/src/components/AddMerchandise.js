@@ -13,14 +13,13 @@ function Sellitem({handleClose}) {
 const Navigate = useNavigate();
 const handleSubmit = async (e)=>{
   e.preventDefault()
-  const response = await PostDataApiCalls('add_merchandise',formdata)
-  if(response.message === 'Failed'){
-    console.log(response)
-  }  
-  else{
-    Navigate('/Home')
-    handleClose();
-  }
+  const response = await PostDataApiCalls('add_merchandise',formdata).then((res)=>{
+    // console.log(res);
+      // Navigate('/Merchandise');
+    window.location.href = "/Merchandise";
+  }).catch(err=>{
+    console.log(err.message) ;
+  });
 }
 
   const[formdata,setformdata] = useState({product_title:'',description:'',price:'',image:'',category:'',status:'Not Sold'})

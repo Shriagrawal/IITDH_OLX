@@ -4,6 +4,7 @@ import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddMerchandise from "../components/AddMerchandise";
 import {GetDataApiCalls} from "../Services";
+import ProfileCard from "../components/ProfileCard";
 
 export default function Home() {
   
@@ -11,13 +12,20 @@ export default function Home() {
   const [filtereddata, setFiltereddata] = useState([]);
   useEffect(()=>{
     async function fetchmerchandisedata(){
-       let merchandise = await GetDataApiCalls('merchandise');
-       console.log(merchandise)
-       if(merchandise.message === 'Failed') {
-        merchandise=[]
-       }
-       setmerchandisedata(merchandise);
-       setFiltereddata(merchandise);
+      let merchandise = await GetDataApiCalls('merchandise').then(
+        (res) => {
+          setmerchandisedata(res);
+          setFiltereddata(res);
+          console.log(res);
+        }
+       ).catch(err => {
+        setmerchandisedata([]);
+        setFiltereddata([]);
+       });
+      //  console.log(merchandise);
+      //  setmerchandisedata(merchandise);
+      //  setFiltereddata(merchandise);
+      //  console.log(merchandiseData);
     }
     fetchmerchandisedata();
   },[])
@@ -142,6 +150,9 @@ border: "1px solid var(--gray-300, #D0D5DD)",
           {/* {filtereddata.map((item, index) => (
             <ResearchCard key={index} data={item} />
           ))} */}
+          {filtereddata.map((item, index) => (
+            <ProfileCard key={index} data={item} />
+          ))}
         </div>
       </div>
     </div>

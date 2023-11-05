@@ -43,17 +43,7 @@ async def root():
 @app.get("/users/")
 def get_users():
     collection = database['users']
-    users = collection.find({'_id': 0})
-    json_data = []
-    for document in users:
-        # document = json.dumps(document, cls=JSONEncoder)
-        json_data.append(document)
-    return json_data
-
-@app.get("/items/")
-def get_users():
-    collection = database['products']
-    users = collection.find({'_id': 0})
+    users = collection.find({},{"_id":0})
     json_data = []
     for document in users:
         # document = json.dumps(document, cls=JSONEncoder)
@@ -71,6 +61,37 @@ def get_user(username: str):
     else:
         return {"message": "User not found"}
 
+@app.get("/items/")
+def get_items():
+    collection = database['products']
+    users = collection.find({},{"_id":0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    return json_data
+
+@app.get("/merchandise/")
+def get_merchandises():
+    collection = database['merchandise']
+    users = collection.find({},{"_id":0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    print(json_data)
+    return json_data
+
+@app.get("/blogs/")
+def get_merchandises():
+    collection = database['blogs']
+    users = collection.find({},{"_id":0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    print(json_data)
+    return json_data
 
 @app.post("/add_user")
 async def add_user(new_user : dict):
@@ -133,28 +154,7 @@ def add_blogs(new_item : dict):
         return "SUCCESSFULLY ADDED"
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
-
-
-@app.get("/merchandise")
-def get_merchandise():
-    collection = database.get_collection('merchandise')
-    result = collection
-
-    if result:
-        return result
-    else:
-        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
-
-@app.get("/blogs")
-def get_blogs():
-    collection = database.get_collection('blogs')
-    result = collection
-
-    if result:
-        return result
-    else:
-        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
-
+    
 # @app.post("/donations")
 # def add_donations(item : dict):
 #     new_dict = item
@@ -200,10 +200,10 @@ def signup(user : dict):
 @app.post("/signin")
 def signin(user : dict):
     collection = database['users']
-    this_user = collection.find()
+    user = collection.find_one({"email": user['email'], "password": user['password']},{"_id": 0})
 
-    if this_user:
-        return 
+    if user:
+        return user
     else:
         raise HTTPException(status_code=500, detail="User doesnt exists")
     
