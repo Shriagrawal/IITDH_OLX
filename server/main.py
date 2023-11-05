@@ -69,7 +69,11 @@ async def add_user(new_user : dict):
     print(new_user)
     users_dict = new_user
     collection = database.get_collection('users')
-    result =  collection.insert_one(users_dict)
+
+    query = {"username": new_user["username"]}
+    update = {"$set": new_user}
+    result = collection.update_one(query, update, upsert=True)
+
     if result:
         return {"UPDATED SUCESSFULLY"}
     else:
@@ -82,7 +86,11 @@ def add_item(new_item : dict):
     print(new_item)
     collection = database['products']
     print(collection)
-    result =  collection.insert_one(products_dict)
+
+    query = {"product_title": products_dict["product_title"]}
+    update = {"$set": products_dict}
+    result = collection.update_one(query, update, upsert=True)
+
     if(result):
         return {result}
     else:
@@ -93,7 +101,11 @@ def add_item(new_item : dict):
 def add_merchandise(new_item : dict):
     new_dict = new_item
     collection = database['merchandise']
-    result = collection.insert_one(new_dict)
+
+    query = {"product_title": new_dict["product_title"]}
+    update = {"$set": new_dict}
+    result = collection.update_one(query, update, upsert=True)
+
     if result:
         return {"SUCCESSFULLY ADDED"}
     else:
@@ -114,7 +126,10 @@ def add_merchandise(new_item : dict):
 def add_alumni(item : dict):
     new_dict = item
     collection = database['alumni']
-    result = collection.insert_one(new_dict)
+    
+    query = {"username": new_dict["username"]}
+    update = {"$set": new_dict}
+    result = collection.update_one(query, update, upsert=True)
     if result:
         return {"SUCCESSFULLY ADDED"}
     else:
@@ -125,7 +140,10 @@ def add_alumni(item : dict):
 def signup(user : dict):
     new_user = user
     collection = database['users']
-    result = collection.insert_one(new_user)
+
+    query = {"username": new_user["username"]}
+    update = {"$set": new_user}
+    result = collection.update_one(query, update, upsert=True)
     if result:
         return {"SUCCESSFULLY ADDED"}
     else:
