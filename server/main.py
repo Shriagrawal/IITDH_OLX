@@ -69,10 +69,7 @@ async def add_user(new_user : dict):
     print(new_user)
     users_dict = new_user
     collection = database.get_collection('users')
-    if new_user._id:
-        return {"User aldready exists"}
-    else:
-        result =  collection.insert_one(users_dict)
+    result =  collection.insert_one(users_dict)
     if result:
         return {"UPDATED SUCESSFULLY"}
     else:
@@ -82,8 +79,10 @@ async def add_user(new_user : dict):
 @app.post("/add_item")
 def add_item(new_item : dict):
     products_dict = new_item
+    print(new_item)
     collection = database['products']
-    result = collection.insert_one(products_dict)
+    print(collection)
+    result =  collection.insert_one(products_dict)
     if(result):
         return {result}
     else:
