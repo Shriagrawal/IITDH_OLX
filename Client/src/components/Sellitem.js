@@ -23,7 +23,7 @@ const handleSubmit = async (e)=>{
   }
 }
 
-  const[formdata,setformdata] = useState({product_title:'',description:'',price:'',image:'',category:'',status:'Not Sold'})
+  const[formdata,setformdata] = useState({product_title:'',description:'',price:'',image:'',category:'',status:'Not Sold',contact_no:''})
    
   function add_data(data_type,data_val)
   {
@@ -98,6 +98,14 @@ const handleSubmit = async (e)=>{
                 type="text"
                 autoFocus
                 onChange={(e)=>add_data('category',e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Contact No</Form.Label>
+              <Form.Control
+                type="phone"
+                autoFocus
+                onChange={(e)=>add_data('contact_no',e.target.value)}
               />
             </Form.Group>
           

@@ -8,17 +8,12 @@ function Publication({data}) {
     <Card.Body>
       <Card.Title>{data.title}</Card.Title>
       <Card.Text>
-        By  {data.name.map((prof) => (
-            <span key={prof}>
-              {prof} {','}
-            </span>
-          ))}
-      {''}  Departmant of {data.department}
+        By  {data.name}
       </Card.Text>
       <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
       <Button variant="primary">Check it</Button>
       <Card.Text>
-        {data.publication_dates}
+        {data.content}
         </Card.Text>
       </div>
     </Card.Body>
