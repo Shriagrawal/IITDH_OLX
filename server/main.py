@@ -11,12 +11,10 @@ from pymongo import MongoClient
 
 # from Models import User  # Replace with your actual module and User model import
 
-
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -62,7 +60,12 @@ def get_user(username: str):
         return {"user_id": user.id, "username": user.username, "email": user.email}
     else:
         return {"message": "User not found"}
-
+    
+@app.get("/merchandise")
+def all_mechandise(new_item : dict):
+    collection = database['merchandise']
+    all_products = collection.find()
+    return all_products
 
 @app.post("/add_user")
 async def add_user(new_user : dict):
@@ -148,6 +151,16 @@ def signup(user : dict):
         return {"SUCCESSFULLY ADDED"}
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
+    
+@app.post("/signin")
+def signin(user:dict):
+    collection = database['users']
+
+    result = collection.find()
+    if result is None:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    return user
+
 
 if __name__ == "__main__":
     import uvicorn
