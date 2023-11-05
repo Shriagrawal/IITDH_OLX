@@ -23,8 +23,8 @@ const handleSubmit = async (e)=>{
   }
 }
 
-  const[formdata,setformdata] = useState({product_title:'k',description:'k',price:'k',image:'k',category:'k',status:'Not Sold'})
-  
+  const[formdata,setformdata] = useState({product_title:'',description:'',price:'',image:'',category:'',status:'Not Sold'})
+   
   function add_data(data_type,data_val)
   {
     formdata[data_type] = data_val;
