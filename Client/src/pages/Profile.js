@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { GetDataApiCalls } from '../Services';
 
 const dummyInstructor = {
   name: 'John Doe',
@@ -31,9 +32,21 @@ const dummyInstructor = {
 };
 
 const InstructorProfile = () => {
+
+  const [userdata, setuserdata] = useState(JSON.parse(localStorage.getItem('user')));
+  
+  // useState({ 
+  //     department:'Null', 
+  //     email:'Null', 
+  //     linkedin_url:'Null', 
+  //     phoneNo:'Null', 
+  //     profile_image: 'Null',
+  //     name: 'Null',
+  //   });
+
   return (
     <div className="container" style={{gap:'24px',display:'flex',flexDirection:'column'}}>
-      <h2 className="my-4">Instructor Profile: {dummyInstructor.name}</h2>
+      <h2 className="my-4">Username: {userdata.name}</h2>
       
       <div className="row">
         {/* Personal Information Section */}
@@ -41,18 +54,25 @@ const InstructorProfile = () => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Personal Information</h5>
-              <p><strong>Email:</strong> {dummyInstructor.email}</p>
-              <p><strong>Department:</strong> {dummyInstructor.department}</p>
-              <p><strong>Type:</strong> {dummyInstructor.type}</p>
-              <p><strong>Salary:</strong> {dummyInstructor.salary}</p>
-              <p><strong>Phone Number:</strong> {dummyInstructor.phone_number}</p>
-              <p><strong>Performance Score:</strong> {dummyInstructor.performance_score}</p>
+              <p><strong>Email:</strong> {userdata.email}</p>
+              <p><strong>Department:</strong> {userdata.department}</p>
+              <p><strong>linkedin_url:</strong> {userdata.linkedin_url}</p>
+              <p><strong>Phone Number:</strong> {userdata.phoneNo}</p>
             </div>
           </div>
         </div>
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body" style={{display:'flex', justifyContent:'center'}}>
+            {/* <p><strong>profile_image : </strong> </p> */}
+            <img src={userdata.profile_image} style={{width:'80%'}}/>
+            </div>
+          </div>
+        </div>
+        
 
         {/* Specializations Section */}
-        <div className="col-md-6">
+        {/* <div className="col-md-6">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Specializations</h5>
@@ -63,11 +83,11 @@ const InstructorProfile = () => {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Courses Section */}
-      <div className="row">
+      {/* <div className="row">
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
@@ -85,7 +105,7 @@ const InstructorProfile = () => {
           </div>
         </div>
 
-        {/* Research Topics Section */}
+        {/* Research Topics Section
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
@@ -102,10 +122,10 @@ const InstructorProfile = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Publications Section */}
-      <div className="row">
+      {/* <div className="row">
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
@@ -125,7 +145,7 @@ const InstructorProfile = () => {
           </div>
         </div>
 
-        {/* Awards Section */}
+        {/* Awards Section 
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
@@ -144,7 +164,7 @@ const InstructorProfile = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

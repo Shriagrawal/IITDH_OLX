@@ -18,8 +18,8 @@ const handleSubmit = async (e)=>{
     console.log(response)
   }  
   else{
-    Navigate('/Home')
     handleClose();
+    window.location.href = "/Home";
   }
 }
 

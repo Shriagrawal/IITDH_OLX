@@ -207,7 +207,7 @@ def signup(user : dict):
 def signin(user : dict):
     collection = database['users']
     user = collection.find_one({"email": user['email'], "password": user['password']},{"_id": 0})
-
+    print(user)
     if user:
         return user
     else:

@@ -23,15 +23,16 @@ const handleSubmit = async (e)=>{
 let createdByUser = {"name":'anonymous'};
 
   useEffect(()=>{
-    createdByUser=localStorage.getItem('user');
+    // createdByUser=localStorage.getItem('user');
     // console.log(createdByUser,"\n");
+    // console.log(localStorage.getItem('user'));
     if(!createdByUser){
       formdata['createdByName'] = createdByUser.createdbyName;
       setformdata(formdata);
     }
   },[]);
 
-  const[formdata,setformdata] = useState({title:'',content:'',category:'',createdbyName:'Anonymous'});
+  const[formdata,setformdata] = useState({title:'',content:'',category:'',createdbyName: JSON.parse(localStorage.getItem('user')).name});
    
   function add_data(data_type,data_val)
   {
@@ -70,7 +71,7 @@ let createdByUser = {"name":'anonymous'};
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    defaultValue="Anonymous"
+                    defaultValue={JSON.parse(localStorage.getItem('user')).name ? JSON.parse(localStorage.getItem('user')).name : 'Anonymous'}
                     placeholder='Username'
                     autoFocus
                     onChange = {(e)=>add_data('createdbyName',e.target.value)}

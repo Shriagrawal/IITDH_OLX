@@ -14,6 +14,7 @@ export default function Home() {
   useEffect(()=>{
    async function fetchdata() {
     try{
+      // console.log(localStorage.getItem('user'));
       let api_data = await GetDataApiCalls('items/');
       console.log(api_data)
       if(api_data.message === 'Failed')
