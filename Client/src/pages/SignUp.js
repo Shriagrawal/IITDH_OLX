@@ -19,7 +19,7 @@ const SignUp =()=>{
      }
   };
 
-  const[Formdata,setformdata]=useState({username:'',email:'',phoneNo:'',password:'',department:'',linkedin_url:'',profile_image:''});
+  const[Formdata,setformdata]=useState({name:'',email:'',phoneNo:'',password:'',department:'',linkedin_url:'',profile_image:''});
   function ChangeData(type,value)
   {
     Formdata[type] = value;
@@ -52,7 +52,7 @@ const SignUp =()=>{
                 type="text"
                 placeholder="name"
                 autoFocus
-                onChange = {(e)=>ChangeData('username',e.target.value)}
+                onChange = {(e)=>ChangeData('name',e.target.value)}
                 required
               />
             </Form.Group>

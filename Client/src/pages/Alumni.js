@@ -3,6 +3,8 @@ import PublicationCard from "../components/PublicationCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddAlumni from "../components/AddAlumni";
+
+import AluminiCard from "../components/AluminiCard";
 import {GetDataApiCalls} from "../Services";
 
 export default function Alumni() {
@@ -12,6 +14,7 @@ export default function Alumni() {
   useEffect(()=>{
     async function publication(){
     let all_user_data = await GetDataApiCalls('users');
+    console.log(all_user_data)
     setpublicationData(all_user_data);
     setFiltereddata(all_user_data);
     }    
@@ -104,9 +107,9 @@ export default function Alumni() {
             gap: "24px",
           }}
         >
-          {/* {filtereddata.map((item, index) => (
-            <PublicationCard key={index} data={item} />
-          ))} */}
+          {filtereddata.map((item, index) => (
+            <AluminiCard key={index} data={item} />
+          ))}
         </div>
       </div>
     </div>

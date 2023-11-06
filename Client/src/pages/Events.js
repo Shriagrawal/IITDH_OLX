@@ -9,16 +9,19 @@ import {publicationData} from "../DumyData";
 export default function Events() {
 
   const[publicationData,setpublicationData] = useState([]);
-  const [filtereddata, setFiltereddata] = useState(publicationData);
-  useEffect(()=>{
-    async function publication(){
-    // let api_publication_data = await fetch('http://127.0.0.1:8000/All_Publications');
-    // api_publication_data = await api_publication_data.json();
-    // setpublicationData(api_publication_data);
-    // setFiltereddata(api_publication_data);
-    // console.log(api_publication_data);
+  const [filtereddata, setFiltereddata] = useState([]);
+  async function fetchdata(){
+    let api_publication_data = await fetch('http://127.0.0.1:8000/events');
+    api_publication_data = await api_publication_data.json();
+    if(api_publication_data.message === 'Failed' || api_publication_data.detail=='Not Found')
+    api_publication_data = [];
+    setpublicationData(api_publication_data);
+    setFiltereddata(api_publication_data);
+    console.log(api_publication_data);
     }    
-   publication();
+  useEffect(()=>{
+    
+    fetchdata();
   },[]);
 
 
@@ -27,30 +30,13 @@ export default function Events() {
     const search = document.getElementById("search").value;
     const filtered = publicationData.filter(
       (item) =>
-        item.name.toLowerCase().includes(search.toLowerCase()) ||
-        item.email.toLowerCase().includes(search.toLowerCase())
+        item.title.toLowerCase().includes(search.toLowerCase())
     );
     setFiltereddata(filtered);
   };
   const [SortText, setSortText] = useState("Sort by Departmant");
 
-  async function fetch_department_sorted_for_publication()
-  {
-      let data  = await fetch('api')
-      data = await data.json();
-      setFiltereddata(data);
-  }
-  const SortData = () => {
-    let filter = [...publicationData];
-    if (SortText === "Sort by Department") {
-      fetch_department_sorted_for_publication()
-      setSortText("Sort by Performance Score");
-    } else {
-      filter.sort((a, b) => b.performance_score - a.performance_score);
-      setSortText("Sort by Department");
-    }
-    setFiltereddata(filter);
-  };
+ 
   const handleClose = () => setShow(false);
   const handleShow = () => {
     console.log(show);
@@ -58,7 +44,7 @@ export default function Events() {
   };
   return (
     <div className="container mt-3">
-      {show && <AddEvents handleClose={handleClose} />}
+      {show && <AddEvents handleClose={handleClose} fetchdata={fetchdata}/>}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
@@ -89,6 +75,8 @@ export default function Events() {
               style={{
                 border: "none",
                 width: "100%",
+                height:"30px",
+                padding:'0',
               }}
               id="search"
               onChange={SearchData}
@@ -125,9 +113,9 @@ export default function Events() {
             gap: "24px",
           }}
         >
-          {/* {filtereddata.map((item, index) => (
+          {filtereddata.map((item, index) => (
             <PublicationCard key={index} data={item} />
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

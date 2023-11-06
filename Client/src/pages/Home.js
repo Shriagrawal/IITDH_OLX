@@ -8,8 +8,7 @@ export default function Home() {
 
   const [data,setdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState(data);
-  useEffect(()=>{
-   async function fetchdata() {
+  async function fetchdata() {
     try{
       let api_data = await GetDataApiCalls('items/');
       console.log(api_data)
@@ -24,6 +23,8 @@ export default function Home() {
       console.log(error);
     }
     }
+  useEffect(()=>{
+   
     fetchdata();
   },[]);
 
@@ -63,7 +64,7 @@ export default function Home() {
   };
   return (
     <div className="container mt-3">
-      {show && <Sellitem handleClose={handleClose} />}
+      {show && <Sellitem handleClose={handleClose} fetchdata={fetchdata} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{

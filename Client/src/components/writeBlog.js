@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import {PostDataApiCalls} from "../Services";
 import { useNavigate } from 'react-router-dom';
-function WriteBlog({handleClose}) {
+function WriteBlog({handleClose,fetchdata}) {
     
 const Navigate = useNavigate();
 
@@ -18,15 +18,18 @@ const handleSubmit = async (e)=>{
   }  
   else{
     handleClose();
+    fetchdata();
   }
 }
 let createdByUser=localStorage.getItem('user');
+createdByUser=JSON.parse(createdByUser);
+console.log(createdByUser);
 if(!createdByUser)
 {
   createdByUser={_id:'2',name:'hi'}
 }
 
-  const[formdata,setformdata] = useState({createdBy:createdByUser._id,title:'',content:'',category:'',createdbyName:createdByUser.name})
+  const[formdata,setformdata] = useState({createdBy:createdByUser?.email,title:'',content:'',category:'',createdbyName:createdByUser?.name})
    
   function add_data(data_type,data_val)
   {
@@ -86,7 +89,7 @@ if(!createdByUser)
               type="text"
               placeholder="Games"
               autoFocus
-              Content = {(e)=>add_data('category',e.target.value)}
+              onChange = {(e)=>add_data('category',e.target.value)}
             >
             </Form.Control>
           </Form.Group>
