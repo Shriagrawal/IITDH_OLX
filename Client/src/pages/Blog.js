@@ -1,5 +1,5 @@
 import React, { useState , useEffect} from "react";
-import PublicationCard from "../components/PublicationCard";
+import BlogCard from "../components/BlogCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import Sellitem from "../components/Sellitem";
@@ -9,8 +9,7 @@ export default function Home() {
 
   const [data,setdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState([]);
-  useEffect(()=>{
-   async function fetchdata() {
+  async function fetchdata() {
     try{
       let blogs = await GetDataApiCalls('blogs/');
       if(blogs.message === 'Failed')
@@ -24,6 +23,8 @@ export default function Home() {
       console.log(error);
     }
     }
+  useEffect(()=>{
+  
     fetchdata();
   },[]);
 
@@ -47,7 +48,7 @@ export default function Home() {
   };
   return (
     <div className="container mt-3">
-      {show && <WriteBlog handleClose={handleClose} />}
+      {show && <WriteBlog handleClose={handleClose} fetchdata={fetchdata} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
@@ -116,9 +117,9 @@ border: "1px solid var(--gray-300, #D0D5DD)",
             gap: "24px",
           }}
         >
-          {/* {filtereddata.map((item, index) => (
-            <ProfileCard key={index} data={item} />
-          ))} */}
+          {filtereddata.map((item, index) => (
+            <BlogCard key={index} data={item} />
+          ))}
         </div>
       </div>
     </div>

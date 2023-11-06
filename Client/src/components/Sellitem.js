@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Sellitem({handleClose}) {
+function Sellitem({handleClose,fetchdata}) {
 
   
 const Navigate = useNavigate();
@@ -18,8 +18,8 @@ const handleSubmit = async (e)=>{
     console.log(response)
   }  
   else{
-    Navigate('/Home')
     handleClose();
+    fetchdata();
   }
 }
 

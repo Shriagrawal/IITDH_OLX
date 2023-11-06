@@ -3,6 +3,7 @@ from fastapi import FastAPI,HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 import json  
+from bson import json_util
 import requests
 
 
@@ -93,6 +94,17 @@ def get_merchandises():
     print(json_data)
     return json_data
 
+@app.get("/events/")
+def get_merchandises():
+    collection = database['events']
+    users = collection.find({},{"_id":0})
+    json_data = []
+    for document in users:
+        # document = json.dumps(document, cls=JSONEncoder)
+        json_data.append(document)
+    print(json_data)
+    return json_data
+
 @app.post("/add_user")
 async def add_user(new_user : dict):
     print(new_user)
@@ -141,6 +153,21 @@ def add_merchandise(new_item : dict):
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
 
+@app.post("/add_events")
+def add_events(new_item : dict):
+    new_dict = new_item
+    collection = database.get_collection('events')
+
+    query = {"title": new_dict["title"]}
+    update = {"$set": new_dict}
+    result = collection.update_one(query, update, upsert=True)
+
+    if result:
+        return "SUCCESSFULLY ADDED"
+    else:
+        raise HTTPException(status_code=500, detail="Failed to insert item into the database")
+    
+
 @app.post("/add_blogs")
 def add_blogs(new_item : dict):
     new_dict = new_item
@@ -181,19 +208,23 @@ def add_alumni(item : dict):
 
 @app.post("/signup")
 def signup(user : dict):
+    print("*"*10)
     new_user = user
     collection = database['users']
-    profile_data=get_info(user['linkdinurl'])
-    new_user.heading=profile_data['headline']
-    new_user.experiences=profile_data['experiences']
-    new_user.profile_data=profile_data
+    # profile_data=get_info(user['linkdinurl'])
+    # new_user.heading=profile_data['headline']
+    # new_user.experiences=profile_data['experiences']
+    # new_user.profile_data=profile_data
     print(new_user['name'],new_user)
     query = {"name": new_user["name"]}
     update = {"$set": new_user}
     print(collection)
     result = collection.update_one(query, update, upsert=True)
-    if result:
-        return result
+    if result.acknowledged:
+        # Document updated successfully, fetch the updated document
+        results = collection.find_one({'email': user['email']})
+        print(new_user['name'], results)
+        return json.dumps(results, default=str)
     else:
         raise HTTPException(status_code=500, detail="Failed to insert item into the database")
     
