@@ -1,10 +1,11 @@
 import React, { useState,useEffect } from "react";
-import merchandiseCard from "../components/merchandiseCard";
+// import merchandiseCard from "../components/merchandiseCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddMerchandise from "../components/AddMerchandise";
 import {GetDataApiCalls} from "../Services";
-import ProfileCard from "../components/ProfileCard";
+// import ProfileCard from "../components/ProfileCard";
+import MerchCardItem from "../components/merchitemcards";
 
 export default function Home() {
   
@@ -47,12 +48,12 @@ export default function Home() {
   
   const SortData = () => {
     let filter = [...merchandiseData];
-    if (SortText === "Sort by Price") {
-     filter.sort((a, b) => a.price.localeCompare(b.department));
-      setSortText("Sort by Category");
-    } else {
-      filter.sort((a, b) => b.category - a.category);
+    if (SortText === "Sort by Category") {
+     filter.sort((a, b) => a.category.localeCompare(b.category));
       setSortText("Sort by Price");
+    } else {
+      filter.sort((a, b) => b.price - a.price);
+      setSortText("Sort by Category");
     }
     setFiltereddata(filter);
   };
@@ -151,7 +152,12 @@ border: "1px solid var(--gray-300, #D0D5DD)",
             <ResearchCard key={index} data={item} />
           ))} */}
           {filtereddata.map((item, index) => (
-            <ProfileCard key={index} data={item} />
+            <MerchCardItem 
+              title={item.product_title} 
+              price={item.price} 
+              description={item.description} 
+              category={item.category} 
+              image={item.image}/>
           ))}
         </div>
       </div>

@@ -4,6 +4,8 @@ import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddEvents from "../components/AddEvents";
 import {publicationData} from "../DumyData";
+import {GetDataApiCalls} from "../Services";
+import CardItem from "../components/eventitemcards";
 
 
 export default function Events() {
@@ -11,14 +13,21 @@ export default function Events() {
   const[publicationData,setpublicationData] = useState([]);
   const [filtereddata, setFiltereddata] = useState(publicationData);
   useEffect(()=>{
-    async function publication(){
-    // let api_publication_data = await fetch('http://127.0.0.1:8000/All_Publications');
-    // api_publication_data = await api_publication_data.json();
-    // setpublicationData(api_publication_data);
-    // setFiltereddata(api_publication_data);
-    // console.log(api_publication_data);
-    }    
-   publication();
+    async function fetcheventsedata(){
+      let events = await GetDataApiCalls('event_donations').then(
+        (res) => {
+          setFiltereddata(res);
+          console.log(res);
+        }
+       ).catch(err => {
+        setFiltereddata([]);
+       });
+      //  console.log(merchandise);
+      //  setmerchandisedata(merchandise);
+      //  setFiltereddata(merchandise);
+      //  console.log(merchandiseData);
+    }
+    fetcheventsedata();
   },[]);
 
 
@@ -125,9 +134,13 @@ export default function Events() {
             gap: "24px",
           }}
         >
-          {/* {filtereddata.map((item, index) => (
-            <PublicationCard key={index} data={item} />
-          ))} */}
+          {filtereddata.map((item, index) => (
+            <CardItem title={item.title} 
+            venue={item.venue}
+              link={item.link}
+              image={item.image}
+              />
+          ))}
         </div>
       </div>
     </div>

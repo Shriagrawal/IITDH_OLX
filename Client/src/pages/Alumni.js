@@ -4,6 +4,7 @@ import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddAlumni from "../components/AddAlumni";
 import {GetDataApiCalls} from "../Services";
+import CardItem from "../components/alumniitemcards";
 
 export default function Alumni() {
 
@@ -14,6 +15,7 @@ export default function Alumni() {
     let all_user_data = await GetDataApiCalls('users');
     setpublicationData(all_user_data);
     setFiltereddata(all_user_data);
+    console.log(all_user_data);
     }    
    publication();
   },[]);
@@ -104,9 +106,9 @@ export default function Alumni() {
             gap: "24px",
           }}
         >
-          {/* {filtereddata.map((item, index) => (
-            <PublicationCard key={index} data={item} />
-          ))} */}
+          {filtereddata.map((item, index) => (
+            <CardItem title={item.username} department={item.department} email={item.email}/>
+          ))}
         </div>
       </div>
     </div>

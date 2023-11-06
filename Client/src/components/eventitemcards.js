@@ -292,25 +292,17 @@ function CardItem(props) {
                 <div class="shadow"></div>
                 <img src={props.image} alt={props.image}/>
                 <div class="image_overlay"></div>
-                <div class="add_to_cart">Bookmark</div>
-                <div class="view_gallery">Chat with vendor</div>                
+                {/* <div class="add_to_cart">Bookmark</div> */}
+                <div class="view_gallery">Chat with Event Head</div>                
                 <div class="stats">        	
                     <div class="stats-container">
-                        <span class="product_price">${props.price}</span>
+                        <span class="product_price">{props.venue}</span>
                         <span class="product_name">{props.title}</span>    
                         <br/>
                         <br/>
-                        <strong>Description : </strong>
-                        <i>{props.description}</i>
-                        <br/>                              
-                        <strong>Category : </strong>
-                        <i>{props.category}</i>
+                        <strong>Payment Link : </strong>
+                        <i>{props.link}</i>
                         <br/>
-                        <strong>Contact No : </strong>
-                        <i>{props.contact_no}</i>
-                        <br/>
-                        <strong>Status : </strong>
-                        <i>{props.status}</i>
                         <div class="product-options">
                         
                         {/* <div class="colors">

@@ -1,11 +1,13 @@
 import React, { useState , useEffect} from "react";
-import PublicationCard from "../components/PublicationCard";
+// import PublicationCard from "../components/PublicationCard";
 import Search from "../assets/Search.svg";
-import plus from "../assets/plus.svg";
-import Sellitem from "../components/Sellitem";
+// import plus from "../assets/plus.svg";
+// import Sellitem from "../components/Sellitem";
 import {GetDataApiCalls} from "../Services";
 import WriteBlog from "../components/writeBlog";
-export default function Home() {
+import CardItem from "../components/blogitemcards";
+
+export default function Blog() {
 
   const [data,setdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState([]);
@@ -116,9 +118,9 @@ border: "1px solid var(--gray-300, #D0D5DD)",
             gap: "24px",
           }}
         >
-          {/* {filtereddata.map((item, index) => (
-            <ProfileCard key={index} data={item} />
-          ))} */}
+          {filtereddata.map((item, index) => (
+            <CardItem title={item.title} content={item.content} category={item.category} name={item.createdbyName}/>
+          ))}
         </div>
       </div>
     </div>

@@ -290,27 +290,27 @@ function CardItem(props) {
         <div class="make3D">
             <div class="product-front">
                 <div class="shadow"></div>
+                <div style={{backgroundColor: "yellow",height:'100%'}}>
                 <img src={props.image} alt={props.image}/>
+                </div>
+                
                 <div class="image_overlay"></div>
-                <div class="add_to_cart">Bookmark</div>
-                <div class="view_gallery">Chat with vendor</div>                
+                {/* <div class="add_to_cart">Bookmark</div> */}
+                {/* <div class="view_gallery">Chat with Event Head</div>*/}
                 <div class="stats">        	
                     <div class="stats-container">
-                        <span class="product_price">${props.price}</span>
-                        <span class="product_name">{props.title}</span>    
+                        <span class="product_price">{props.title}</span>
+                        <span class="product_name">Sent by: {props.name}</span>  
                         <br/>
-                        <br/>
-                        <strong>Description : </strong>
-                        <i>{props.description}</i>
-                        <br/>                              
                         <strong>Category : </strong>
                         <i>{props.category}</i>
+                        <br/>  
                         <br/>
-                        <strong>Contact No : </strong>
-                        <i>{props.contact_no}</i>
+                        
+                        <strong>Content : </strong>
+                        <i>{props.content}</i>
                         <br/>
-                        <strong>Status : </strong>
-                        <i>{props.status}</i>
+                        
                         <div class="product-options">
                         
                         {/* <div class="colors">

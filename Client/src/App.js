@@ -13,7 +13,7 @@ import Alumni from "./pages/Alumni";
 import { GetItemLocalStorage } from "./Services";
 import ShoppingCart from "./wishlist/WhishList";
 import ChatBox from "./chats/ChatBox";
-import Cards from "./shopingcards/CardPage";
+// import Cards from "./shopingcards/CardPage";
 import Blog from "./pages/Blog";
 
 function App() {

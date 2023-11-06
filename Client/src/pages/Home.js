@@ -1,9 +1,12 @@
 import React, { useState , useEffect} from "react";
-import ProfileCard from "../components/ProfileCard";
+// import ProfileCard from "../components/ProfileCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import Sellitem from "../components/Sellitem";
 import {GetDataApiCalls} from "../Services";
+import CardItem from "../components/itemcards";
+
+
 export default function Home() {
 
   const [data,setdata] = useState([]);
@@ -47,10 +50,10 @@ export default function Home() {
   const SortData = () => {
     let filter = [...data];
     if (SortText === "Sort by Price") {
-     filter.sort((a, b) => a.price.localeCompare(b.department));
+     filter.sort((a, b) => b.price - a.price);
       setSortText("Sort by Category");
     } else {
-      filter.sort((a, b) => b.category - a.category);
+      filter.sort((a, b) => a.category.localeCompare(b.category));
       setSortText("Sort by Price");
     }
     setFiltereddata(filter);
@@ -149,7 +152,15 @@ border: "1px solid var(--gray-300, #D0D5DD)",
         >
           {}
           {filtereddata.map((item, index) => (
-            <ProfileCard key={index} data={item} />
+            <CardItem 
+              title={item.product_title} 
+              category={item.category} 
+              contact_no={item.contact_no} 
+              description={item.description} 
+              image={item.image} 
+              price={item.price}
+              status={item.status}
+              />
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -11,22 +11,27 @@ const Navigate = useNavigate();
 
 const handleSubmit = async (e)=>{
   e.preventDefault()
-  const response = await PostDataApiCalls('add_blogs',formdata)
+  const response = await PostDataApiCalls('add_blogs',formdata);
   if(response.message === 'Failed'){
-    console.log(response)
-
+    console.log(response);
   }  
   else{
     handleClose();
+    window.location.href = "/Blog";
   }
 }
-let createdByUser=localStorage.getItem('user');
-if(!createdByUser)
-{
-  createdByUser={_id:'2',name:'hi'}
-}
+let createdByUser = {"name":'anonymous'};
 
-  const[formdata,setformdata] = useState({createdBy:createdByUser._id,title:'',content:'',category:'',createdbyName:createdByUser.name})
+  useEffect(()=>{
+    createdByUser=localStorage.getItem('user');
+    // console.log(createdByUser,"\n");
+    if(!createdByUser){
+      formdata['createdByName'] = createdByUser.createdbyName;
+      setformdata(formdata);
+    }
+  },[]);
+
+  const[formdata,setformdata] = useState({title:'',content:'',category:'',createdbyName:'Anonymous'});
    
   function add_data(data_type,data_val)
   {
@@ -42,8 +47,8 @@ if(!createdByUser)
     let a = false;
      for(const type in formdata)
      { 
-      console.log(type," " ,formdata[type].length);
-       if(formdata[type]?.length === 0)
+      console.log(type," " ,formdata[type]?.length);
+       if(formdata[type].length === 0)
        {
          a=true;
          break;
@@ -61,6 +66,16 @@ if(!createdByUser)
             </Modal.Header>
             <Modal.Body>
               <Form>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue="Anonymous"
+                    placeholder='Username'
+                    autoFocus
+                    onChange = {(e)=>add_data('createdbyName',e.target.value)}
+                  />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Blog Title</Form.Label>
                   <Form.Control
@@ -86,7 +101,7 @@ if(!createdByUser)
               type="text"
               placeholder="Games"
               autoFocus
-              Content = {(e)=>add_data('category',e.target.value)}
+              onChange = {(e)=>add_data('category',e.target.value)}
             >
             </Form.Control>
           </Form.Group>

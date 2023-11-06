@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 // Use like this : <CardItem title="Boo" description="I don't care what you want" price={10}/> 
 
-function CardItem(props) {
+function MerchCardItem(props) {
   useEffect(() => {
     $(document).ready(function(){
     
@@ -252,7 +252,7 @@ function CardItem(props) {
     });
   });
   return (
-    // <div id="grid">
+    <div style={{display:'block',position:'relative'}}>
       <div class="product">
     	{/* <div class="info-large">
         	<h4>{props.title}</h4>
@@ -306,20 +306,20 @@ function CardItem(props) {
                         <strong>Category : </strong>
                         <i>{props.category}</i>
                         <br/>
-                        <strong>Contact No : </strong>
+                        {/* <strong>Contact No :</strong>
                         <i>{props.contact_no}</i>
                         <br/>
-                        <strong>Status : </strong>
-                        <i>{props.status}</i>
-                        <div class="product-options">
+                        <strong>Status :</strong>
+                        <i>{props.status}</i> */}
+                        {/* <div class="product-options">
                         
                         {/* <div class="colors">
                             <div class="c-blue"><span></span></div>
                             <div class="c-red"><span></span></div>
                             <div class="c-white"><span></span></div>
                             <div class="c-green"><span></span></div>
-                        </div> */}
-                        </div>                       
+                        </div>
+                        </div>                        */}
                     </div>                         
                 </div>
             </div>
@@ -350,8 +350,8 @@ function CardItem(props) {
             </div>	   */}
         </div>	
       </div>
-    // </div>
+    </div>
   );
 }
 
-export default CardItem;
+export default MerchCardItem;

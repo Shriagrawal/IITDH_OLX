@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Sellitem({handleClose}) {
+function AddMerchItem({handleClose}) {
 
   
 const Navigate = useNavigate();
@@ -115,4 +115,4 @@ const handleSubmit = async (e)=>{
   );
 }
 
-export default Sellitem;
+export default AddMerchItem;
