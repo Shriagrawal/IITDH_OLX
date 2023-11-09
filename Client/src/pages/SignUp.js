@@ -14,7 +14,7 @@ const SignUp =()=>{
      }
      else{
       SetItemLocalStorage('user',response);
-      navigate('/Home');
+      navigate('/');
       window.location.reload();
      }
   };
