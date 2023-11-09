@@ -293,7 +293,7 @@ function MerchCardItem(props) {
                 <img src={props.image} alt={props.image}/>
                 <div class="image_overlay"></div>
                 <div class="add_to_cart">Bookmark</div>
-                <div class="view_gallery">Chat with vendor</div>                
+                <div class="view_gallery"><a style={{textDecoration: 'none',  color: 'inherit'}} href={"mailto:admin@gmail.com"}>Chat with vendor</a></div>                
                 <div class="stats">        	
                     <div class="stats-container">
                         <span class="product_price">${props.price}</span>
